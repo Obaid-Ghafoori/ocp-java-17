@@ -1,5 +1,13 @@
 package chapter_03;
 
+/**
+ * In traditional switch statements, the types supported are:
+ *
+ * Primitive Integral and its wrapper Types:
+ *
+ * byte, short, char, int and Byte, Short, Character, and Integer.
+ * long, float, and double are not supported.
+ */
 public class TraditionalSwitchStatement {
     public static void main(String[] args) {
         String day = "Tuesday";
