@@ -21,7 +21,20 @@ public class PatternMatchingInstanceOf {
         }
         */
 
+        /*
+        // it is considered bad practice when reassigning variable e.g data
         if (obj instanceof String data) {
+            data = "This is considered bad practice";
+            System.out.println("String length: " + data.length());
+        } else if (obj instanceof Integer dataInt) {
+            System.out.println("Integer value: " + dataInt);
+        } else {
+            System.out.println("Unknown type");
+        }
+
+         */
+        // adding key word 'final' ensures the variable data obj Immutability
+        if (obj instanceof final String data) {
             System.out.println("String length: " + data.length());
         } else if (obj instanceof Integer dataInt) {
             System.out.println("Integer value: " + dataInt);
