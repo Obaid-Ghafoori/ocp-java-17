@@ -1,6 +1,11 @@
 package chapter_03;
 
 public class FallThroughSwitchStatement {
+
+    public static final int getCookies() {
+        return 6;
+    }
+
     public static void main(String[] args) {
         String day = "Friday";
 
@@ -36,9 +41,32 @@ public class FallThroughSwitchStatement {
             default:
                 System.out.println("unknown season");
                 break;
-        };
+        }
+        ;
+
+
+        /**
+         * case apple does not compile because numberOfAnimals is marked as final, the values in each case statement
+         * has to be compile-time constant value of the same data type therefore it is not permitted. the same apply for the methods
+         * because methods are not evaluated until runtime so they cannot be used as case statement.
+         */
+        /*
+        final int banana = 2;
+        int apple = 1;
+        int cookies = getCookies();
+        final int numberOfAnimals =3;
+        switch (numberOfAnimals){
+            case banana :
+            case apple:
+            case cookies:
+            case 3*3:
+        }
+         */
+
 
     }
+
+
 }
 
 
