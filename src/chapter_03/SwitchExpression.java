@@ -34,5 +34,18 @@ public class SwitchExpression {
         };
         System.out.println("and it is a " + weekdayName + ".");
 
+        // switch expression that returns a value must handle all possible value, for example,
+        // what is the value of the badDaysName if dayOfWeek is 6? so one of way would be to add default branch.
+        /*
+        String badDaysName = switch (dayOfWeek) {
+            case 1 -> "Monday";
+            case 2 -> "Tuesday";
+            case 3 -> "Wednesday";
+            case 4 -> "Thursday";
+            case 5 -> "Friday";
+
+        };
+        */
+
     }
 }
