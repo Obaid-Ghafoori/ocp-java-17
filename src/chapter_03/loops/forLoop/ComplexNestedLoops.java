@@ -24,10 +24,32 @@ class FindInMatrix {
 
         findFirstMatchingValueInEntireLoop();
 
+        //performCleaningForOtherThanStablesBOrLeopard2();
+
+        for (char stables = 'a'; stables <= 'd'; stables++) {
+            for (int leopard = 1; leopard < 4; leopard++) {
+                if (stables == 'b' || leopard == 2) {
+                    continue;
+                }
+                System.out.println("Cleaning: " + stables + "," + leopard);
+            }
+        }
 
     }
 
-    private static void findFirstMatchingValueInEntireLoop(){
+    private static void performCleaningForOtherThanStablesBOrLeopard2() {
+        CLEANING:
+        for (char stables = 'a'; stables <= 'd'; stables++) {
+            for (int leopard = 1; leopard < 4; leopard++) {
+                if (stables == 'b' || leopard == 2) {
+                    continue CLEANING;
+                }
+                System.out.println("Cleaning: " + stables + "," + leopard);
+            }
+        }
+    }
+
+    private static void findFirstMatchingValueInEntireLoop() {
         PARENT_LOOP:
         for (int i = 0; i < complexArray.length; i++) {
             for (int j = 0; j < complexArray[i].length; j++) {
