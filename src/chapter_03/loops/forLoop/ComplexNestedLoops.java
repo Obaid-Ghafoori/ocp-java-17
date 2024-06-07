@@ -1,5 +1,8 @@
 package chapter_03.loops.forLoop;
 
+/**
+ * This class showcases the different loops in the java ecosystem and the usage of optional labels and keyword such as break and continue
+ */
 public class ComplexNestedLoops {
 }
 
@@ -9,19 +12,22 @@ class FindInMatrix {
     static int positionX = -1;
     static int positionY = -1;
 
-    /*
-      j0    j1
-     -----------
-     | 1    13 | --> i0
-     | 5    2  | --> i1
-     | 2    2  | --> i2
-     ___________
-     */
     public static void main(String[] args) {
+        /*
+          j0    j1
+         -----------
+         | 1    13 | --> i0
+         | 5    2  | --> i1
+         | 2    2  | --> i2
+         ___________
+         */
+
+        findFirstMatchingValueInEntireLoop();
+
 
     }
 
-    public void findFirstMatchingValueInEntireLoop(){
+    private static void findFirstMatchingValueInEntireLoop(){
         PARENT_LOOP:
         for (int i = 0; i < complexArray.length; i++) {
             for (int j = 0; j < complexArray[i].length; j++) {
@@ -35,13 +41,13 @@ class FindInMatrix {
         }
 
         if (positionX == -1 || positionY == -1) {
-            System.out.println("Value  " + searchValue + "not found");
+            System.out.println("Value " + searchValue + "not found");
         } else {
-            System.out.println("\nValue  " + searchValue + " found at: " + "(" + positionX + ", " + positionY + ")");
+            System.out.println("\nValue " + searchValue + " found at: " + "(" + positionX + ", " + positionY + ")");
         }
     }
 
-    public void findFirstMatchingValueOfLastInnerLoop() {
+    private static void findFirstMatchingValueOfLastInnerLoop() {
         for (int i = 0; i < complexArray.length; i++) {
             for (int j = 0; j < complexArray[i].length; j++) {
                 System.out.print(complexArray[i][j] + ", ");
@@ -54,13 +60,13 @@ class FindInMatrix {
         }
 
         if (positionX == -1 || positionY == -1) {
-            System.out.println("Value  " + searchValue + "not found");
+            System.out.println("Value " + searchValue + "not found");
         } else {
-            System.out.println("\nValue  " + searchValue + " found at: " + "(" + positionX + ", " + positionY + ")");
+            System.out.println("\nValue " + searchValue + " found at: " + "(" + positionX + ", " + positionY + ")");
         }
     }
 
-    public void findLastMatchingValueInEntireLoop() {
+    private static void findLastMatchingValueInEntireLoop() {
         for (int i = 0; i < complexArray.length; i++) {
             for (int j = 0; j < complexArray[i].length; j++) {
                 System.out.print(complexArray[i][j] + ", ");
@@ -72,12 +78,11 @@ class FindInMatrix {
         }
 
         if (positionX == -1 || positionY == -1) {
-            System.out.println("Value  " + searchValue + "not found");
+            System.out.println("Value " + searchValue + "not found");
         } else {
-            System.out.println("\nValue  " + searchValue + " found at: " + "(" + positionX + ", " + positionY + ")");
+            System.out.println("\nValue " + searchValue + " found at: " + "(" + positionX + ", " + positionY + ")");
         }
     }
-
 
 
 }
