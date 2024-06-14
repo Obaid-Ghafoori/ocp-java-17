@@ -17,8 +17,8 @@ public class CreatingAndManipulatingStrings {
 
         b = b.append("f").append("g");
 
-        System.out.println("a="+a);
-        System.out.println("b="+b);
+        System.out.println(String.format("a= %s and it length is %d",a, a.length()));
+        System.out.println("b= %s and its length is %d".formatted(b, b.length()));
     }
 
     /**
@@ -27,9 +27,12 @@ public class CreatingAndManipulatingStrings {
      */
     private static void appendToString() {
         String alpha = "";
+        float score = 1;
         for (char current = 'a'; current <= 'z'; current++) {
+            score *= 0.73;
             alpha += current;
         }
-        System.out.println(alpha);
+
+        System.out.println("Alphabets are %s and the accumulated scores after each iteration is %.4f".formatted(alpha, score));
     }
 }
