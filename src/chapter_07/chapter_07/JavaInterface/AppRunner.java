@@ -16,6 +16,10 @@ public class AppRunner {
         System.out.println(getInterfaceDescription());
         System.out.println(getInterfaceRules());
 
+        Thread.sleep(130);
+        System.out.println("Device is bought for the resell");
+        iPhone.reset();
+
 
     }
 
