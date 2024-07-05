@@ -1,5 +1,7 @@
 package chapter_07.chapter_07.JavaInterface;
 
+import chapter_07.Interface;
+
 import java.util.regex.Pattern;
 
 public class AppRunner {
@@ -30,13 +32,15 @@ public class AppRunner {
 
 
     private static String getInterfaceRules() {
-        Pattern indentation = Pattern.compile("\n\t\t\t");
-
-        return String.format("""
-                  RULES
+        return """
+               RULES
+               --------
                   1. Interface Access Modifiers:
-                  %spublic: The interface is accessible from any other class.
-                  %sdefault (package-private): The interface is accessible only within its own package.                  
-                """, indentation, indentation);
+                            public: The interface is accessible from any other class.
+                            default (package-private): The interface is accessible only within its own package.
+                  
+                 2. Default Methods
+                            Methods in an interface that have a body. These methods can be overridden by implementing classes.                  
+                """;
     }
 }
