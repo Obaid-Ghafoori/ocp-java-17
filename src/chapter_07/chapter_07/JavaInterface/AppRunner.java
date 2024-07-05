@@ -52,7 +52,11 @@ public class AppRunner {
                   3. Static methods:  
                              Methods in an interface that belong to the interface itself, not to instances of the interface
                              In other words it can be accessible from the implementing class by referencing interface name
-                             e.g. in the Smartphone class call status as -> Device.status                
+                             e.g. in the Smartphone class call status as -> Device.status.
+                             
+                  4. Private Methods:
+                             Private methods in an interface that are used internally by default or static methods 
+                             and cannot be accessed by implementing classes                
                  """;
     }
 }
