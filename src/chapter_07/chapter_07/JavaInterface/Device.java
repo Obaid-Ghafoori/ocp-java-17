@@ -2,14 +2,18 @@ package chapter_07.chapter_07.JavaInterface;
 
 public interface Device {
     void trurnOn();
+
     void turnOff();
 
     /**
      * this method in an interface that have a body. This methods can be optionally overridden by implementing classes.
      * if not the default it will print the default message.
      */
-    default void reset() {
+    default void reset() throws InterruptedException {
         System.out.println("Device is resetting... ⚙️");
+        Thread.sleep(200);
+        System.out.println("Resetting is successfully finished!\uD83D\uDC4D \n");
+
     }
 
     /**
@@ -18,10 +22,12 @@ public interface Device {
      * e.g. in the Smartphone class call status as -> Device.status
      */
 
-    static void status(String tag){
-        String state ="Resetting is successfully finished!\uD83D\uDC4D \n";
-        state  += tag == "buy" ? "Device is enqueued for the test" : "Device is ready for the sale";
-        System.out.println(state);
+    static String status(String tag) {
+        return switch (tag.toLowerCase()) {
+            case "buy" -> "Device is enqueued for the test";
+            case "test" -> "Device is ready for the sale";
+            default -> "INVALID status is given";
+        };
     }
 
 

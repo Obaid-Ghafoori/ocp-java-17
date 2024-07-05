@@ -20,7 +20,8 @@ public class AppRunner {
         System.out.println("Device is bought for the resell");
         iPhone.reset();
 
-        Device.status("buy");
+        String status = Device.status("test");
+        System.out.println(status);
 
 
     }
