@@ -1,12 +1,8 @@
 package chapter_07.chapter_07.JavaInterface;
 
-import chapter_07.Interface;
-
 import java.util.regex.Pattern;
 
 public class AppRunner {
-    private String description;
-
     public static void main(String[] args) throws InterruptedException {
         var iPhone = new Smartphone();
 
@@ -26,8 +22,8 @@ public class AppRunner {
         var appleWatch = new SmartWatch();
         appleWatch.smartFeature();
 
-       var wifiSpeed = appleWatch.getLocalWifiSpeed();
-        System.out.println(String.format("Local wifi speed is: %d MB",wifiSpeed));
+        var wifiSpeed = appleWatch.getLocalWifiSpeed();
+        System.out.println(String.format("Local wifi speed is: %d MB", wifiSpeed));
 
 
     }

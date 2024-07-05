@@ -5,7 +5,7 @@ package chapter_07.chapter_07.JavaInterface;
  * note: an interface can extend multiple other interfaces, but cannot implement
  */
 public interface SmartDevice extends Device, Connectivity {
-    default void smartFeature(){
+    default void smartFeature() {
         System.out.println("Receiving call on a smart watch");
-    };
+    }
 }
