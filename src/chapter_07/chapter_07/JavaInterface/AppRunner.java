@@ -20,6 +20,8 @@ public class AppRunner {
         System.out.println("Device is bought for the resell");
         iPhone.reset();
 
+        Device.status("buy");
+
 
     }
 
@@ -37,14 +39,19 @@ public class AppRunner {
 
     private static String getInterfaceRules() {
         return """
-               RULES
-               --------
-                  1. Interface Access Modifiers:
-                            public: The interface is accessible from any other class.
-                            default (package-private): The interface is accessible only within its own package.
-                  
-                 2. Default Methods
-                            Methods in an interface that have a body. These methods can be overridden by implementing classes.                  
-                """;
+                RULES
+                --------
+                   1. Interface Access Modifiers:
+                             public: The interface is accessible from any other class.
+                             default (package-private): The interface is accessible only within its own package.
+                   
+                  2. Default Methods:
+                             Methods in an interface that have a body. These methods can be overridden by implementing classes.
+                             
+                  3. Static methods:  
+                             Methods in an interface that belong to the interface itself, not to instances of the interface
+                             In other words it can be accessible from the implementing class by referencing interface name
+                             e.g. in the Smartphone class call status as -> Device.status                
+                 """;
     }
 }
