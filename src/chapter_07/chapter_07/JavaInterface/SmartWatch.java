@@ -27,4 +27,16 @@ public class SmartWatch implements SmartDevice{
         System.out.println("Receiving call on a apple watch ⌚--> \uD83D\uDCDE");
     }
 
+    /**
+     * calling hidden default method, this kind of operation showcase properties of both Static and Instance method.
+     * here we refer the method with interface name first to indicate which method of interface we call then we use
+     * super keyword to show we follow the instance of inheritance, but not class (class level = static) inheritance.
+     *
+     * the override version of interface with optionally annotating with override can be declared as well and equivalent
+     * with following implementation.
+     * @return the speed of local wifi.
+     */
+    public int getLocalWifiSpeed() {
+        return SmartDevice.super.getWifiSpeed();
+    }
 }

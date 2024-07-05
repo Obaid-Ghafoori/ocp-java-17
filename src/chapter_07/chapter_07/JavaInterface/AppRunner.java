@@ -26,6 +26,9 @@ public class AppRunner {
         var appleWatch = new SmartWatch();
         appleWatch.smartFeature();
 
+       var wifiSpeed = appleWatch.getLocalWifiSpeed();
+        System.out.println(String.format("Local wifi speed is: %d MB",wifiSpeed));
+
 
     }
 
@@ -57,12 +60,16 @@ public class AppRunner {
                              In other words it can be accessible from the implementing class by referencing interface name
                              e.g. in the Smartphone class call status as -> Device.status.
                              
+                             static method cannot be marked as final or abstract
+                             
                   4. Private Methods:
                              Private methods in an interface that are used internally by default or static methods 
                              and cannot be accessed by implementing classes.
                              
                   5. Inheritance with Interfaces
-                             Java resolve the issue of multiple inheritance by inheriting from multiple other interfaces.                
+                             Java resolve the issue of multiple inheritance by inheriting from multiple other interfaces.
+                             A static method cannot be inherited and cannot be accessed in a class that implementing the
+                             interface, without referencing with interface name.                
                  """;
     }
 }
