@@ -23,6 +23,9 @@ public class AppRunner {
         String status = Device.status("test");
         System.out.println(status);
 
+        var appleWatch = new SmartWatch();
+        appleWatch.smartFeature();
+
 
     }
 
@@ -56,7 +59,10 @@ public class AppRunner {
                              
                   4. Private Methods:
                              Private methods in an interface that are used internally by default or static methods 
-                             and cannot be accessed by implementing classes                
+                             and cannot be accessed by implementing classes.
+                             
+                  5. Inheritance with Interfaces
+                             Java resolve the issue of multiple inheritance by inheriting from multiple other interfaces.                
                  """;
     }
 }
