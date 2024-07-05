@@ -26,7 +26,7 @@ public interface Device {
         return switch (tag.toLowerCase()) {
             case "buy" -> "Device is enqueued for the test";
             case "test" -> "Device is ready for the sale";
-            default -> "INVALID status is given";
+            default ->  throw new IllegalArgumentException("INVALID status is given: --> " + tag);
         };
     }
 
