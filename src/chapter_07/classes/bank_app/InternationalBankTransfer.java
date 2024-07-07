@@ -1,4 +1,4 @@
-package chapter_07.classes;
+package chapter_07.classes.bank_app;
 
 public non-sealed class InternationalBankTransfer extends BankTransferPayment {
     private final String swiftCode;

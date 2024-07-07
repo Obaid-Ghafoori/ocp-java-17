@@ -1,4 +1,4 @@
-package chapter_07.classes;
+package chapter_07.classes.bank_app;
 
 public final class CreditCardPayment implements Payment {
     private String cardNumber;

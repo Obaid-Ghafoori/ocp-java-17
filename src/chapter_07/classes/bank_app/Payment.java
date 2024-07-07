@@ -1,4 +1,4 @@
-package chapter_07.classes;
+package chapter_07.classes.bank_app;
 
 public sealed interface Payment permits CreditCardPayment, BankTransferPayment, DigitalWalletPayment {
     boolean validate();

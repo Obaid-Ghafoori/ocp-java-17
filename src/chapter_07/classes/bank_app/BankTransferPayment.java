@@ -1,4 +1,4 @@
-package chapter_07.classes;
+package chapter_07.classes.bank_app;
 
 public sealed class BankTransferPayment implements Payment permits  DomesticBankTransfer, InternationalBankTransfer{
     private String accountNumber;

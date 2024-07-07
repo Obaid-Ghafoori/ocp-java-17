@@ -1,4 +1,4 @@
-package chapter_07.classes;
+package chapter_07.classes.bank_app;
 
 public final class DomesticBankTransfer extends BankTransferPayment {
     public DomesticBankTransfer(String accountNumber, String bankCode) {

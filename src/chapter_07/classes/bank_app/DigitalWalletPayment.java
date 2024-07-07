@@ -1,4 +1,4 @@
-package chapter_07.classes;
+package chapter_07.classes.bank_app;
 
 public final class DigitalWalletPayment implements Payment {
     private String walletId;
