@@ -19,10 +19,9 @@ public class PaymentApp {
         processPayment(internationalBankTransfer, 500.0);
         processPayment(digitalWalletPayment, 75.0);
 
-        getDescription(creditCardPayment);
-
-
         showCustomerTransactionDetails();
+
+        getDescription(creditCardPayment);
     }
 
     private static void showCustomerTransactionDetails() {
