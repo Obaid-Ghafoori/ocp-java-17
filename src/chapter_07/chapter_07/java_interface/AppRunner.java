@@ -1,7 +1,5 @@
 package chapter_07.chapter_07.java_interface;
 
-import chapter_07.chapter_07.java_interface.java_enum.DeviceType;
-
 import java.util.regex.Pattern;
 
 public class AppRunner {
