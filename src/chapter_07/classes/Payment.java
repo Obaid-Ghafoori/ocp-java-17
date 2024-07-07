@@ -5,7 +5,7 @@ public sealed interface Payment permits CreditCardPayment, BankTransferPayment, 
     void processPayment(double amount);
 
     default void getNotes(){
-        String notes = """
+       final String notes = """
                 DESCRIPTION:
                    Sealed classes and interfaces are part of Java's new feature set introduced in JDK 17.
                    They restrict which other classes or interfaces may extend or implement them.

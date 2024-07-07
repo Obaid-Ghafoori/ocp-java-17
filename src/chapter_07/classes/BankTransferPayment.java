@@ -1,6 +1,6 @@
 package chapter_07.classes;
 
-public final class BankTransferPayment implements Payment {
+public sealed class BankTransferPayment implements Payment permits  DomesticBankTransfer, InternationalBankTransfer{
     private String accountNumber;
     private String bankCode;
 
