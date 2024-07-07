@@ -1,5 +1,7 @@
 package chapter_07.chapter_07.java_interface;
 
+import chapter_07.chapter_07.java_interface.java_enum.DeviceType;
+
 import java.util.regex.Pattern;
 
 public class AppRunner {
@@ -8,6 +10,7 @@ public class AppRunner {
 
         iPhone.trurnOn();
         Thread.sleep(120);
+        System.out.println(String.format("Starting the %s", iPhone.getDeviceType()));
         iPhone.turnOff();
         System.out.println(getInterfaceDescription());
         System.out.println(getInterfaceRules());
@@ -20,6 +23,7 @@ public class AppRunner {
         System.out.println(status);
 
         var appleWatch = new SmartWatch();
+        System.out.println(String.format("This %s has smart features", appleWatch.getDeviceType()));
         appleWatch.smartFeature();
 
         var wifiSpeed = appleWatch.getLocalWifiSpeed();

@@ -1,10 +1,14 @@
 package chapter_07.chapter_07.java_interface;
 
 
+import chapter_07.chapter_07.java_interface.java_enum.DeviceType;
+
 public interface Device {
     void trurnOn();
 
     void turnOff();
+
+    DeviceType getDeviceType();
 
     /**
      * this method in an interface that have a body. This methods can be optionally overridden by implementing classes.
