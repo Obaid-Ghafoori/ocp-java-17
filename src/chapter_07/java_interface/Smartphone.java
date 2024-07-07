@@ -1,7 +1,7 @@
-package chapter_07.chapter_07.java_interface;
+package chapter_07.java_interface;
 
 
-import chapter_07.chapter_07.java_interface.java_enum.DeviceType;
+import chapter_07.java_interface.java_enum.DeviceType;
 
 public class Smartphone implements Device {
     private DeviceType deviceType = DeviceType.SMARTPHONE;

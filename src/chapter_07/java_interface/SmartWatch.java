@@ -1,6 +1,6 @@
-package chapter_07.chapter_07.java_interface;
+package chapter_07.java_interface;
 
-import chapter_07.chapter_07.java_interface.java_enum.DeviceType;
+import chapter_07.java_interface.java_enum.DeviceType;
 
 public class SmartWatch implements SmartDevice {
     private DeviceType deviceType = DeviceType.SMARTWATCH;

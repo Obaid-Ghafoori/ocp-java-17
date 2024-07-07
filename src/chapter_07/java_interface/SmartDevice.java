@@ -1,4 +1,4 @@
-package chapter_07.chapter_07.java_interface;
+package chapter_07.java_interface;
 
 /**
  * this represents multiple inheritance concept in the java ecosystem.

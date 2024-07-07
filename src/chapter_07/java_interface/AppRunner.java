@@ -1,5 +1,9 @@
 package chapter_07.chapter_07.java_interface;
 
+import chapter_07.java_interface.Device;
+import chapter_07.java_interface.SmartWatch;
+import chapter_07.java_interface.Smartphone;
+
 import java.util.regex.Pattern;
 
 public class AppRunner {

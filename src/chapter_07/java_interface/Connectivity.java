@@ -1,4 +1,4 @@
-package chapter_07.chapter_07.java_interface;
+package chapter_07.java_interface;
 
 public interface Connectivity {
     void connectToWifi();
