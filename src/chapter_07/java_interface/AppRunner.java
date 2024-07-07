@@ -3,6 +3,7 @@ package chapter_07.chapter_07.java_interface;
 import chapter_07.java_interface.Device;
 import chapter_07.java_interface.SmartWatch;
 import chapter_07.java_interface.Smartphone;
+import chapter_07.java_interface.java_enum.LoggingColor;
 
 import java.util.regex.Pattern;
 
@@ -30,6 +31,8 @@ public class AppRunner {
 
         var wifiSpeed = appleWatch.getLocalWifiSpeed();
         System.out.println(String.format("Local wifi speed is: %d MB", wifiSpeed));
+
+        System.out.println(LoggingColor.RESET.getNotes());
 
 
     }

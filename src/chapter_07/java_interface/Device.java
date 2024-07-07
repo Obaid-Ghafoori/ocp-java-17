@@ -7,6 +7,7 @@ import chapter_07.java_interface.java_enum.LoggingColor;
 
 
 public interface Device {
+    final String PHONE_ICON = "\uD83D\uDCF1\t";
     void trurnOn();
 
     void turnOff();
@@ -18,20 +19,28 @@ public interface Device {
      * if not the default it will print the default message.
      */
     default void reset() throws InterruptedException {
-        var log = log("Device is enqueued for the reset", LogLevel.INFO);
+        var log = log(PHONE_ICON + "Device is enqueued for the reset", LogLevel.INFO);
         System.out.println(log);
-        System.out.println(log("Device is resetting... \uD83D\uDCF2 ... ⚙️", LogLevel.INFO));
+        System.out.println(log(PHONE_ICON + "Device is resetting... \uD83D\uDCF2 ... ⚙️", LogLevel.INFO));
         Thread.sleep(200);
-        System.out.println(log("Resetting is successfully finished!\uD83D\uDC4D", LogLevel.SUCCESS));
-        System.out.println("------------------------------------------\n");
+        System.out.println(log(PHONE_ICON + "Resetting is successfully finished!\uD83D\uDC4D", LogLevel.SUCCESS));
+        System.out.println(log("|------------------------------------------|".stripLeading(), LogLevel.INFO));
 
     }
 
+    /**
+     * This overloaded method determines the color of each level of logs
+     * @param message the logging message
+     * @param level the level of the log
+     * @return log message with its designated color code.
+     */
     default String log(String message, LogLevel level) {
+
         LoggingColor color = switch (level) {
             case INFO -> LoggingColor.BLUE;
             case ERROR -> LoggingColor.RED;
             case SUCCESS -> LoggingColor.GREEN;
+            case NOTES -> LoggingColor.RESET;
         };
         return log(message, color);
     }
@@ -60,7 +69,7 @@ public interface Device {
      * @return a log message
      */
     private String log(String message, LoggingColor color) {
-        return String.format("%s, \uD83D\uDCF1 %s %s", color.getColorCode(), message, LoggingColor.RESET.getColorCode());
+        return String.format("%s %s %s", color.getColorCode(), message, LoggingColor.RESET.getColorCode());
     }
 
 
