@@ -32,7 +32,7 @@ public class AppRunner {
         var wifiSpeed = appleWatch.getLocalWifiSpeed();
         System.out.println(String.format("Local wifi speed is: %d MB", wifiSpeed));
 
-        System.out.println(LoggingColor.RESET.getNotes());
+        LoggingColor.RESET.getNotes();
 
 
     }
