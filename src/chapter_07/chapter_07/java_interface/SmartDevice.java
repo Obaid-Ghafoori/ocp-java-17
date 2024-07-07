@@ -1,7 +1,7 @@
-package chapter_07.chapter_07.JavaInterface;
+package chapter_07.chapter_07.java_interface;
 
 /**
- * this represents multiple inheritance concept in the java eco-system.
+ * this represents multiple inheritance concept in the java ecosystem.
  * note: an interface can extend multiple other interfaces, but cannot implement
  */
 public interface SmartDevice extends Device, Connectivity {

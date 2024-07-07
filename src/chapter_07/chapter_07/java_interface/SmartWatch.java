@@ -1,6 +1,10 @@
-package chapter_07.chapter_07.JavaInterface;
+package chapter_07.chapter_07.java_interface;
+
+import chapter_07.chapter_07.java_interface.java_enum.DeviceType;
 
 public class SmartWatch implements SmartDevice {
+    private DeviceType deviceType = DeviceType.SMARTWATCH;
+
     @Override
     public void connectToWifi() {
         System.out.println("⌚SmartWatch is connecting to wifi... \uD83D\uDEDC");
@@ -26,6 +30,11 @@ public class SmartWatch implements SmartDevice {
     @Override
     public void smartFeature() {
         System.out.println("Receiving call on a apple watch ⌚--> \uD83D\uDCDE");
+    }
+
+    @Override
+    public DeviceType getDeviceType() {
+        return this.deviceType;
     }
 
     /**
