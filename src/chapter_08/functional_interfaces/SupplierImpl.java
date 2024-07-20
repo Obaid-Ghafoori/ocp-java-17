@@ -3,6 +3,9 @@ package chapter_08.functional_interfaces;
 import java.time.LocalDate;
 import java.util.function.Supplier;
 
+/**
+ * This class is represents a implementation/usage of Supplier built-in functional interface, using method reference and lambda
+ */
 public class SupplierImpl {
     static Supplier<LocalDate> supplierRef = LocalDate::now;
     static Supplier<LocalDate> supplierLambda = () -> LocalDate.now();
