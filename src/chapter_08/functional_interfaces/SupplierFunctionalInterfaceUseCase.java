@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 /**
  * This class represents a implementation/usage of Supplier built-in functional interface, using method reference and lambda
  */
-public class SupplierImpl {
+public class SupplierFunctionalInterfaceUseCase {
     static Supplier<LocalDate> supplierRef = LocalDate::now;
     static Supplier<LocalDate> supplierLambda = () -> LocalDate.now();
 
