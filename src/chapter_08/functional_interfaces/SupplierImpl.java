@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.function.Supplier;
 
 /**
- * This class is represents a implementation/usage of Supplier built-in functional interface, using method reference and lambda
+ * This class represents a implementation/usage of Supplier built-in functional interface, using method reference and lambda
  */
 public class SupplierImpl {
     static Supplier<LocalDate> supplierRef = LocalDate::now;
