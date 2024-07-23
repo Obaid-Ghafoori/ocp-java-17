@@ -28,5 +28,5 @@ In this application, we'll:
 
 1. **Clone the repository**:
    ```sh
-   git clone https://github.com/obaid-ghafoori/task-management-app.git
-   cd task-management-app
+   git clone https://github.com/Obaid-Ghafoori/ocp-java-17.git
+   cd chatper_08/task-management
