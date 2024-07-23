@@ -18,5 +18,9 @@ public class TaskManagementApp {
 
         System.out.println("\nTasks after transformations:");
         taskManager.getTasks().forEach(System.out::println);
+
+        System.out.println("\nPerforming an action on the tasks:");
+        taskManager.performActionOnTask(System.out::println);
+
     }
 }

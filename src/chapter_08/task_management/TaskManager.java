@@ -4,6 +4,7 @@ import chapter_08.task_management.model.Task;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -57,6 +58,16 @@ public class TaskManager {
     public void transformTaskDescription(Function<String, String> description){
         tasks.forEach(task -> task.setDescription(description.apply(task.getDescription())));
 
+    }
+
+    /**
+     * Performs an action on each task using the provided task.
+     *
+     * @param task The action to perform on each task.
+     */
+
+    public void performActionOnTask(Consumer<Task> task){
+        tasks.forEach(task);
     }
 
 }
