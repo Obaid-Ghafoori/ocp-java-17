@@ -12,5 +12,11 @@ public class TaskManagementApp {
         List<Task> pendingTasks = taskManager.fiterTasks(task -> !task.isCompleted());
         System.out.println("\nPrinting pending tasks:");
         pendingTasks.stream().forEach(System.out::println);
+
+        // printing transform tasks
+        taskManager.transformTaskDescription(String::toUpperCase);
+
+        System.out.println("\nTasks after transformations:");
+        taskManager.getTasks().forEach(System.out::println);
     }
 }

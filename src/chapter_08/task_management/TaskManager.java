@@ -4,6 +4,7 @@ import chapter_08.task_management.model.Task;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -36,16 +37,26 @@ public class TaskManager {
     }
 
     /**
-     * Filters tasks based on the provided predicate.
+     * Filters tasks based on the provided criteria.
      *
-     * @param predicate The condition to filter tasks.
+     * @param criteria The condition to filter tasks.
      * @return A list of tasks that match the predicate.
      */
-
-    public List<Task> fiterTasks(Predicate<Task> predicate) {
+    public List<Task> fiterTasks(Predicate<Task> criteria) {
         return tasks.stream()
-                .filter(predicate)
+                .filter(criteria)
                 .collect(Collectors.toList());
+    }
+
+
+    /**
+     * Transforms the descriptions of all tasks using the provided function.
+     *
+     * @param description The function to apply to each task's description.
+     */
+    public void transformTaskDescription(Function<String, String> description){
+        tasks.forEach(task -> task.setDescription(description.apply(task.getDescription())));
+
     }
 
 }
