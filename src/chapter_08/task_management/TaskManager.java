@@ -2,11 +2,11 @@ package chapter_08.task_management;
 
 import chapter_08.task_management.model.Task;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 
@@ -15,13 +15,15 @@ import java.util.stream.Collectors;
  * It provides methods to filter, transform, perform actions, and add tasks.
  */
 public class TaskManager {
-    private List<Task> tasks;
+    private Set<Task> tasks;
+    private Map<Integer, Task> taskMap;
 
     /**
      * Initializes a new TaskManager with a predefined list of tasks.
      */
     public TaskManager() {
-        tasks = new ArrayList<>();
+        tasks = new HashSet<>();
+        taskMap = new HashMap<>();
         tasks.add(new Task(1, "Complete project report", false, 1));
         tasks.add(new Task(2, "Pay electricity bill", true, 2));
         tasks.add(new Task(3, "Buy groceries", false, 3));
@@ -33,7 +35,7 @@ public class TaskManager {
      *
      * @return A list of tasks.
      */
-    public List<Task> getTasks() {
+    public Set<Task> getTasks() {
         return tasks;
     }
 
@@ -43,10 +45,10 @@ public class TaskManager {
      * @param criteria The condition to filter tasks.
      * @return A list of tasks that match the predicate.
      */
-    public List<Task> fiterTasks(Predicate<Task> criteria) {
+    public Set<Task> fiterTasks(Predicate<Task> criteria) {
         return tasks.stream()
                 .filter(criteria)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
 
@@ -55,7 +57,7 @@ public class TaskManager {
      *
      * @param description The function to apply to each task's description.
      */
-    public void transformTaskDescription(Function<String, String> description){
+    public void transformTaskDescription(Function<String, String> description) {
         tasks.forEach(task -> task.setDescription(description.apply(task.getDescription())));
 
     }
@@ -66,8 +68,17 @@ public class TaskManager {
      * @param task The action to perform on each task.
      */
 
-    public void performActionOnTask(Consumer<Task> task){
+    public void performActionOnTask(Consumer<Task> task) {
         tasks.forEach(task);
+    }
+
+    /**
+     * Adds a new task to the list using the provided supplier.
+     *
+     * @param newTaskSupplier The supplier that generates a new task.
+     */
+    public void addTask(Supplier<Task> newTaskSupplier) {
+       tasks.add(newTaskSupplier.get());
     }
 
 }

@@ -1,5 +1,7 @@
 package chapter_08.task_management.model;
 
+import java.util.Objects;
+
 public class Task {
     private final int id;
     private String description;
@@ -44,5 +46,18 @@ public class Task {
     @Override
     public String toString() {
         return "Task{id=" + id + ", description='" + description + "', isCompleted=" + isCompleted + ", priority=" + priority + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id && isCompleted == task.isCompleted && priority == task.priority && Objects.equals(description, task.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, isCompleted, priority);
     }
 }
