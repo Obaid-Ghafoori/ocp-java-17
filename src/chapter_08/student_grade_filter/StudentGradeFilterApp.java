@@ -4,7 +4,8 @@ public class StudentGradeFilterApp {
     public static void main(String[] args) {
         StudentGenerator studentGenerator = new StudentGenerator();
         studentGenerator.showcaseStudents(System.out::println);
-        System.out.println(studentGenerator.filterStudentGrade());
+        System.out.println("-----------------------------------------");
+        studentGenerator.filterStudentGrade();
 
     }
 
