@@ -22,6 +22,10 @@ public class StudentGenerator {
         students.forEach(studentConsumer);
     }
 
+    public String filterStudentGrade() {
+        Student filteredStudent = students.stream().filter(s -> s.grade() >= 80).findFirst().get();
+        return String.format(" student with a grade of %s is %s", filteredStudent.grade(), filteredStudent.name());
+    }
 
     private static List<Student> createStudentsList(int size, Supplier<Student> supplier) {
         List<Student> students = new ArrayList<>();
