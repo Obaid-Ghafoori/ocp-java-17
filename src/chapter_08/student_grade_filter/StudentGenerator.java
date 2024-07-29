@@ -1,7 +1,6 @@
 package chapter_08.student_grade_filter;
 
 import chapter_08.student_grade_filter.model.Student;
-import chapter_08.task_management.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +22,9 @@ public class StudentGenerator {
     }
 
     public void filterStudentGrade() {
-//        Student filteredStudent = students.stream().filter(s -> s.grade() >= 80).findFirst().get();
-//        return String.format(" student with a grade of %s is %s", filteredStudent.grade(), filteredStudent.name());
         StudentProcessorImpl processor = new StudentProcessorImpl();
         students.stream()
-                .filter(s -> s.grade()>= 80)
+                .filter(s -> s.grade() >= 80)
                 .forEach(processor::processStudentName);
     }
 

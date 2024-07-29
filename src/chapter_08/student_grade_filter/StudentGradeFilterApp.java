@@ -4,10 +4,8 @@ public class StudentGradeFilterApp {
     public static void main(String[] args) {
         StudentGenerator studentGenerator = new StudentGenerator();
         studentGenerator.showcaseStudents(System.out::println);
-        System.out.println("-----------------------------------------");
+        System.out.println("\n|--------------------------| Using Student processor interface |------------------------------|");
         studentGenerator.filterStudentGrade();
-
     }
-
 
 }
