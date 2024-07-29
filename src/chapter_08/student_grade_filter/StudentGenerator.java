@@ -25,7 +25,7 @@ public class StudentGenerator {
     public void filterStudentGrade() {
         StudentProcessorImpl processor = new StudentProcessorImpl();
         students.stream()
-                .filter(s -> s.grade() >= 80)
+                .filter(s -> s.grade() >= EIGHTY)
                 .forEach(processor::processStudentName);
     }
 
