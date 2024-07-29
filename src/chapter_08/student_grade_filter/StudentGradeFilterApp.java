@@ -6,6 +6,8 @@ public class StudentGradeFilterApp {
         studentGenerator.showcaseStudents(System.out::println);
         System.out.println("\n|--------------------------| Using Student processor interface |------------------------------|");
         studentGenerator.filterStudentGrade();
+        System.out.println("\n|--------------------------| Printing Student name and then grade |------------------------------|");
+        studentGenerator.printStudentNameAndGrade();
     }
 
 }

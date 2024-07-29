@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class StudentGenerator {
+    public static final int EIGHTY = 80;
     private List<Student> students;
     private Supplier<Student> studentSupplier;
 
@@ -26,6 +27,15 @@ public class StudentGenerator {
         students.stream()
                 .filter(s -> s.grade() >= 80)
                 .forEach(processor::processStudentName);
+    }
+
+    public void printStudentNameAndGrade(){
+        Consumer<Student> printStudentName = student -> System.out.println("\nstudent name is:\t\t" + student.name());
+        Consumer<Student> printStudentGrade = student -> System.out.println("& the grades are:\t\t" + student.grade());
+        
+        students.stream()
+                .filter(student -> student.grade() >= EIGHTY)
+                .forEach(printStudentName.andThen(printStudentGrade));
     }
 
     private static List<Student> createStudentsList(int size, Supplier<Student> supplier) {
