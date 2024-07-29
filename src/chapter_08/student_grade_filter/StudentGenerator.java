@@ -4,6 +4,7 @@ import chapter_08.student_grade_filter.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -30,6 +31,15 @@ public class StudentGenerator {
                 .forEach(processor::processStudentName);
     }
 
+    public void printStudentNameAndGradeReport(){
+        Consumer<Student> printStudentName = student -> System.out.println("\nstudent name is:\t\t" + student.name());
+        Consumer<Student> printStudentGrade = student -> System.out.println("& the grades are:\t\t" + student.grade());
+        
+        students.stream()
+                .filter(isItGradedAtLeastEighty())
+                .forEach(printStudentName.andThen(printStudentGrade));
+    }
+
     public void filterScienceStudent(){
         Predicate<Student> isPassingGrade = isItGradedAtLeastEighty();
         Predicate<Student> isScienceStudent = student -> student.major().equals("Science");
@@ -39,15 +49,18 @@ public class StudentGenerator {
                 .forEach(System.out::println);
     }
 
-    public void printStudentNameAndGrade(){
-        Consumer<Student> printStudentName = student -> System.out.println("\nstudent name is:\t\t" + student.name());
-        Consumer<Student> printStudentGrade = student -> System.out.println("& the grades are:\t\t" + student.grade());
-        
-        students.stream()
-                .filter(isItGradedAtLeastEighty())
-                .forEach(printStudentName.andThen(printStudentGrade));
-    }
+    /**
+     * Prints students with passing grades (>= 80) along with their grade information.
+     */
+    public void expressCongratulationToThePassingStudent() {
+        BiFunction<Student, Double,String> getStudentGradeMessage = (student, grade ) -> String.format("Congratulation to %s with a grade of %s", student.name(), grade);
+        BiFunction<String, String,String> addPassingMessage = (message, passingMessage ) -> String.format("%s and who is successfully passed!", message);
 
+        students.stream().filter(isItGradedAtLeastEighty())
+                .map(student -> getStudentGradeMessage.apply(student, student.grade()))
+                .map(message -> addPassingMessage.apply(message,""))
+                .forEach(System.out::println);
+    }
     private Predicate<Student> isItGradedAtLeastEighty(){
         Predicate<Student> isPassingGrade = student -> student.grade() >= EIGHTY;
         return isPassingGrade;
