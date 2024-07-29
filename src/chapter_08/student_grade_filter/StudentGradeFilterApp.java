@@ -8,6 +8,9 @@ public class StudentGradeFilterApp {
         studentGenerator.filterStudentGrade();
         System.out.println("\n|--------------------------| Printing Student name and then grade |------------------------------|");
         studentGenerator.printStudentNameAndGrade();
+
+        System.out.println("\n|--------------------------| Printing Passing Science Students |------------------------------|");
+        studentGenerator.filterScienceStudent();
     }
 
 }

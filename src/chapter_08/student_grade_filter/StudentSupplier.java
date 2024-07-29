@@ -15,10 +15,11 @@ public class StudentSupplier implements Supplier<Student> {
         String lastName = lastNames[count % lastNames.length];
         String name = firstName + " " + lastName;
         double grade = 80.0 + (count % 10);
+        String major = "Science";
 
         count++;
 
-        return new Student(name, grade);
+        return new Student(name, grade, major);
     }
 }
 
