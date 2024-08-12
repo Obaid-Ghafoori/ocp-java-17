@@ -7,7 +7,10 @@ public class EmployeeManagementSystem {
 
         EmployeeManager employeeManager = new EmployeeManager();
         employeeManager.addEmployee(new Employee(1, "Mark", "Sales", 2233.50));
+        employeeManager.addEmployee(new Employee(2, "David", "IT", 2233.50));
 
+
+        employeeManager.removeEmployeeById(3);
         employeeManager.printEmployees();
 
 

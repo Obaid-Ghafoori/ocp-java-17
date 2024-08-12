@@ -34,6 +34,19 @@ public class EmployeeManager {
 
 
     /**
+     * Removes an Employee from the system by their unique ID.
+     *
+     * @param id the unique ID of the Employee to be removed
+     */
+
+    public void removeEmployeeById(int id){
+        boolean employeeToRemove = employees.removeIf(employee -> employee.id() == id);
+        if(!employeeToRemove){
+            throw new IllegalArgumentException("Employee with id [" + id + "] does not exist in the system");
+        }
+    }
+
+    /**
      * prints out all the employees of the system
      */
     public void printEmployees(){
