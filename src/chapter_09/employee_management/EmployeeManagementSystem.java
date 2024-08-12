@@ -1,16 +1,25 @@
 package chapter_09.employee_management;
 
+import java.util.List;
+
 public class EmployeeManagementSystem {
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Management System");
         System.out.println(printEmployeeManagementSysBanner());
 
         EmployeeManager employeeManager = new EmployeeManager();
-        employeeManager.addEmployee(new Employee(1, "Mark", "Sales", 2233.50));
-        employeeManager.addEmployee(new Employee(2, "David", "IT", 2233.50));
+
+        List<Employee> employees = EmployeeData.getSampleEmployees();
+        employees.forEach(employeeManager::addEmployee);
+
+        Employee employee = new Employee(131, "Mark Bula", "Sales", 2283.50);
+        employeeManager.addEmployee(employee);
 
 
-        employeeManager.removeEmployeeById(3);
+        Employee existingEmployee = employeeManager.getEmployeeById(110);
+
+        employeeManager.updateEmployee(existingEmployee.withAttributes("Tom Tesson", "Operation", 2000.00));
+
         employeeManager.printEmployees();
 
 

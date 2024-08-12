@@ -23,9 +23,10 @@ public class EmployeeManager {
      * @param employee the Employee to be added
      * @throws IllegalArgumentException if an Employee with the same ID already exists
      */
-    public void addEmployee(Employee employee){
+    public void addEmployee(Employee employee) {
+        Objects.requireNonNull(employee, "Employee cannot be null");
         boolean isUniqueId = uniqueEmployeeIds.contains(employee.id());
-        if(isUniqueId){
+        if (isUniqueId) {
             throw new IllegalArgumentException("Employee ID must be unique.");
         }
         employees.add(employee);
@@ -39,18 +40,35 @@ public class EmployeeManager {
      * @param id the unique ID of the Employee to be removed
      */
 
-    public void removeEmployeeById(int id){
+    public void removeEmployeeById(int id) {
         boolean employeeToRemove = employees.removeIf(employee -> employee.id() == id);
-        if(!employeeToRemove){
+        uniqueEmployeeIds.remove(id);
+        if (!employeeToRemove) {
             throw new IllegalArgumentException("Employee with id [" + id + "] does not exist in the system");
         }
     }
 
     /**
+     * Updates an existing Employee's information in the system.
+     * The method first removes the old Employee record and then adds the updated record.
+     *
+     * @param updatedEmployee the Employee object containing updated information
+     */
+    public void updateEmployee(Employee updatedEmployee) {
+        removeEmployeeById(updatedEmployee.id());
+        addEmployee(updatedEmployee);
+    }
+
+    /**
      * prints out all the employees of the system
      */
-    public void printEmployees(){
+    public void printEmployees() {
         employees.forEach(System.out::println);
+    }
+
+    public Employee getEmployeeById(int employeeIdToUpdate) {
+        return employees.stream().filter(employee -> employee.id() == employeeIdToUpdate).findFirst()
+                .orElseThrow(() -> new NoSuchElementException("No such Employee found with id "+ employeeIdToUpdate));
     }
 
     @Override
