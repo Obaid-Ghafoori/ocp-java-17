@@ -32,6 +32,14 @@ public class EmployeeManager {
         uniqueEmployeeIds.add(employee.id());
     }
 
+
+    /**
+     * prints out all the employees of the system
+     */
+    public void printEmployees(){
+        employees.forEach(System.out::println);
+    }
+
     @Override
     public String toString() {
         return "EmployeeManager{" +

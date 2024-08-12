@@ -7,7 +7,8 @@ public class EmployeeManagementSystem {
 
         EmployeeManager employeeManager = new EmployeeManager();
         employeeManager.addEmployee(new Employee(1, "Mark", "Sales", 2233.50));
-        System.out.println(employeeManager);
+
+        employeeManager.printEmployees();
 
 
     }
