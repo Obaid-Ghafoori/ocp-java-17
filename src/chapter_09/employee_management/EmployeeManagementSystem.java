@@ -4,6 +4,12 @@ public class EmployeeManagementSystem {
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Management System");
         System.out.println(printEmployeeManagementSysBanner());
+
+        EmployeeManager employeeManager = new EmployeeManager();
+        employeeManager.addEmployee(new Employee(1, "Mark", "Sales", 2233.50));
+        System.out.println(employeeManager);
+
+
     }
     private static String printEmployeeManagementSysBanner() {
         return """
