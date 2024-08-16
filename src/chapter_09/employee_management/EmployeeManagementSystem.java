@@ -44,7 +44,7 @@ public class EmployeeManagementSystem {
         // Search by salary range
         showSearchResultInTable(manager.searchEmployees(bySalaryRange(), new Double[]{70000.0, 90000.0}), "[ Employees by salary range: ] \n");
 
-
+        manager.calculateAverageSalary("Engineering");
     }
 
     private static void showSearchResultInTable(List<Employee> manager, String tableTitle) {

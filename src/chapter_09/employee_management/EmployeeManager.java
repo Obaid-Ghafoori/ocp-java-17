@@ -36,7 +36,7 @@ public class EmployeeManager {
         }
         employees.add(employee);
         uniqueEmployeeIds.add(employee.id());
-        departmentEmployees.computeIfAbsent(employee.department(), k -> new ArrayList<>()).add(employee);
+        departmentEmployees.computeIfAbsent(employee.department().toLowerCase(), k -> new ArrayList<>()).add(employee);
         employeeSearchMap.put(employee.name(), employee);
 
     }
@@ -76,7 +76,7 @@ public class EmployeeManager {
 
     /**
      * Retrieves an employee by their unique ID.
-     *
+     * <p>
      * This method searches for an employee with the specified employee ID
      * from the employees list. If an employee with the given ID is found,
      * it is returned. If no employee with the given ID exists, a
@@ -98,8 +98,8 @@ public class EmployeeManager {
      * Searches for employees based on a generic criterion.
      *
      * @param criteria the criterion to be used for searching
-     * @param value the value to be used in the criterion
-     * @param <T> the type of the value parameter
+     * @param value    the value to be used in the criterion
+     * @param <T>      the type of the value parameter
      * @return a list of employees that match the criteria
      */
     public <T> List<Employee> searchEmployees(EmployeeCriteria<T> criteria, T value) {
@@ -110,11 +110,11 @@ public class EmployeeManager {
 
     /**
      * Prints the unique list of department names.
-     *
+     * <p>
      * This method outputs all the unique department names stored in the
      * departmentEmployees map. Each department name is guaranteed to be unique,
      * as they are used as keys in the map.
-     *
+     * <p>
      * Example Output:
      * <pre>
      * ------------- unique Departments --------------
@@ -144,7 +144,7 @@ public class EmployeeManager {
      * Lists all employees grouped by their respective departments.
      * This method iterates over the departmentEmployees map and prints out each department name followed by
      * the employees that belong to that department.
-     *
+     * <p>
      * Example Output:
      * <pre>
      * Department: Engineering
@@ -154,14 +154,45 @@ public class EmployeeManager {
      *   - Employee{id=102, name='Bob Smith', department='Marketing', salary=70000.0}
      * </pre>
      */
-    public void getEmployeesPerDepartment(){
-        for (Map.Entry<String, List<Employee>> entry: departmentEmployees.entrySet()) {
+    public void getEmployeesPerDepartment() {
+        for (Map.Entry<String, List<Employee>> entry : departmentEmployees.entrySet()) {
             String department = entry.getKey();
             List<Employee> employees = entry.getValue();
-            System.out.println("\nDepartment of: " +department);
+            System.out.println("\nDepartment of: " + department);
 
             employees.forEach(employee -> System.out.println(" - " + employee));
         }
+    }
+
+
+    /**
+     * Calculates the average salary of employees in a specific department.
+     * <p>
+     * This method retrieves the list of employees for the given department from the internal
+     * {@code departmentEmployees} map. If the department does not exist or has no employees,
+     * the method returns {@code 0.0}. Otherwise, it computes the average of the salaries of
+     * all employees in that department using Java Streams.
+     *
+     * @param department The name of the department to calculate the average salary for.
+     *                   Should not be {@code null}. If the department does not exist or has
+     *                   no employees, {@code 0.0} is returned.
+     * @return The average salary of employees in the specified department. Returns {@code 0.0}
+     * if the department has no employees or does not exist.
+     */
+    public double calculateAverageSalary(String department) {
+        var deptEmployees = departmentEmployees.get(department.toLowerCase());
+
+        if (deptEmployees == null || deptEmployees.isEmpty()) {
+            return 0.00;
+        }
+
+        var averageSalary = deptEmployees.stream()
+                .mapToDouble(Employee::salary)
+                .average()
+                .orElse(0.00);
+
+        System.out.println("Average Salary in " + department.toUpperCase() + ": " + averageSalary);
+        return averageSalary;
     }
 
     @Override
