@@ -1,5 +1,7 @@
 package chapter_09.employee_management;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static chapter_09.employee_management.EmployeeSearchCriteria.*;
@@ -43,6 +45,7 @@ public class EmployeeManagementSystem {
     private static void showSearchResultInTable(List<Employee> manager, String tableTitle) {
         List<Employee> employeesByDepartment = manager;
         System.out.printf("\n %45s", tableTitle);
+        Collections.sort(employeesByDepartment);
         printEmployees(employeesByDepartment);
     }
 

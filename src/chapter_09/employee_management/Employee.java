@@ -1,6 +1,6 @@
 package chapter_09.employee_management;
 
-public record Employee(int id, String name, String department, double salary) {
+public record Employee(int id, String name, String department, double salary) implements Comparable<Employee> {
 
     /**
      * Creates a new Employee instance with modified name, department, and salary.
@@ -12,6 +12,11 @@ public record Employee(int id, String name, String department, double salary) {
      */
     public Employee withAttributes(String newName, String newDepartment, double newSalary) {
         return new Employee(this.id, newName, newDepartment, newSalary);
+    }
+
+    @Override
+    public int compareTo(Employee other) {
+        return this.name.compareTo(other.name);
     }
 }
 
