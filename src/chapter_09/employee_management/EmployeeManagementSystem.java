@@ -22,8 +22,13 @@ public class EmployeeManagementSystem {
 
         employeeManager.printEmployees();
 
+        employeeManager.getUniqueDepartment();
+
+        employeeManager.getEmployeesPerDepartment();
+
 
     }
+
     private static String printEmployeeManagementSysBanner() {
         return """
                   _____                 _                           __  __                                                   _       ____            _                \s
