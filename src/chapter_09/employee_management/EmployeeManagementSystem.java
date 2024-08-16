@@ -29,8 +29,7 @@ public class EmployeeManagementSystem {
         manager.getEmployeesPerDepartment();
 
         // Search by name
-        List<Employee> employeesByName = manager.searchEmployees(byName(), "Alice Johnson");
-        System.out.println("\n - Employees by name: \n" + employeesByName);
+        showSearchResultInTable(manager.searchEmployees(byName(), "Alice Johnson"), "[ Employees by name: ] \n");
 
         // Search by department
         showSearchResultInTable(manager.searchEmployees(byDepartment(), "Engineering"), "[ Employees by department: ] \n");
