@@ -47,6 +47,7 @@ public class EmployeeManagementSystem {
         showSearchResultInTable(manager.searchEmployees(bySalaryRange(), new Double[]{70000.0, 90000.0}), "[ Employees by salary range: ] \n");
 
         showMetricsFor("engineering");
+        manager.calculateTotalWegCost();
     }
 
     private static void showMetricsFor(String department) {

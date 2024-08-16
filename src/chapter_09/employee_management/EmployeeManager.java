@@ -13,13 +13,11 @@ public class EmployeeManager {
     private final List<Employee> employees;
     private final Set<Integer> uniqueEmployeeIds;
     private final Map<String, List<Employee>> departmentEmployees;
-    private final Map<String, Employee> employeeSearchMap;
 
     public EmployeeManager() {
         this.employees = new ArrayList<>();
         this.uniqueEmployeeIds = new HashSet<>();
         this.departmentEmployees = new HashMap<>();
-        this.employeeSearchMap = new HashMap<>();
     }
 
     /**
@@ -37,7 +35,6 @@ public class EmployeeManager {
         employees.add(employee);
         uniqueEmployeeIds.add(employee.id());
         departmentEmployees.computeIfAbsent(employee.department().toLowerCase(), k -> new ArrayList<>()).add(employee);
-        employeeSearchMap.put(employee.name(), employee);
 
     }
 
@@ -214,6 +211,13 @@ public class EmployeeManager {
 
         System.out.println("Total number of employees in " + department.toUpperCase() + ":  " + numberOfEmployees);
         return numberOfEmployees;
+    }
+
+    public double calculateTotalWegCost(){
+        var totalSalaryOfEmployees = employees.isEmpty() || employees == null ? 0.00 :
+                employees.stream().mapToDouble(Employee::salary).sum();
+        System.out.printf("Total weg cost is " + ": %32s\n", totalSalaryOfEmployees);
+        return totalSalaryOfEmployees;
     }
 
 
