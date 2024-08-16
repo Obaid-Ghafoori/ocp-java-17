@@ -181,7 +181,6 @@ public class EmployeeManager {
      */
     public double calculateAverageSalary(String department) {
         var deptEmployees = departmentEmployees.get(department.toLowerCase());
-
         if (deptEmployees == null || deptEmployees.isEmpty()) {
             return 0.00;
         }
@@ -191,9 +190,32 @@ public class EmployeeManager {
                 .average()
                 .orElse(0.00);
 
-        System.out.println("Average Salary in " + department.toUpperCase() + ": " + averageSalary);
+        System.out.printf("Average Salary in " + department.toUpperCase() +  ": %19s\n", averageSalary);
         return averageSalary;
     }
+
+
+    public double calculateTotalSalary(String department) {
+        var deptEmployees = departmentEmployees.get(department.toLowerCase());
+        double totalSalary = deptEmployees.isEmpty() || deptEmployees == null ? 0.00 :
+                deptEmployees.stream()
+                        .mapToDouble(Employee::salary)
+                        .sum();
+        System.out.printf("Total Salary in " + department.toUpperCase() + ": %22s\n", totalSalary);
+        return totalSalary;
+    }
+
+    public long countNumberOfEmployees(String department) {
+        var deptEmployees = departmentEmployees.get(department.toLowerCase());
+        var numberOfEmployees = deptEmployees == null || deptEmployees.isEmpty() ? 0 :
+                deptEmployees.stream()
+                        .mapToInt(Employee::id)
+                        .count();
+
+        System.out.println("Total number of employees in " + department.toUpperCase() + ":  " + numberOfEmployees);
+        return numberOfEmployees;
+    }
+
 
     @Override
     public String toString() {

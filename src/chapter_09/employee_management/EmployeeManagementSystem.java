@@ -6,11 +6,13 @@ import java.util.List;
 import static chapter_09.employee_management.EmployeeSearchCriteria.*;
 
 public class EmployeeManagementSystem {
+
+    static EmployeeManager manager;
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Management System");
         System.out.println(printEmployeeManagementSysBanner());
 
-        EmployeeManager manager = new EmployeeManager();
+        manager = new EmployeeManager();
 
         List<Employee> employees = EmployeeData.getSampleEmployees();
         employees.forEach(manager::addEmployee);
@@ -44,7 +46,14 @@ public class EmployeeManagementSystem {
         // Search by salary range
         showSearchResultInTable(manager.searchEmployees(bySalaryRange(), new Double[]{70000.0, 90000.0}), "[ Employees by salary range: ] \n");
 
-        manager.calculateAverageSalary("Engineering");
+        showMetricsFor("engineering");
+    }
+
+    private static void showMetricsFor(String department) {
+        System.out.println();
+        manager.calculateAverageSalary(department);
+        manager.calculateTotalSalary(department);
+        manager.countNumberOfEmployees(department);
     }
 
     private static void showSearchResultInTable(List<Employee> manager, String tableTitle) {
