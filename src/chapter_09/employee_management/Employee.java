@@ -16,7 +16,7 @@ public record Employee(int id, String name, String department, double salary) im
 
     @Override
     public int compareTo(Employee other) {
-        return this.name.compareTo(other.name);
+        return Integer.compare(this.id, other.id);
     }
 }
 

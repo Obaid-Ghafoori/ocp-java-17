@@ -2,6 +2,11 @@ package chapter_09.employee_management;
 
 public class EmployeeSearchCriteria {
 
+    // Criteria for searching by employee id
+    public static EmployeeCriteria<Integer> byID() {
+        return (employee, id) -> employee.id() == id;
+    }
+
     // Criteria for searching by employee name
     public static EmployeeCriteria<String> byName() {
         return (employee, name) -> employee.name().equalsIgnoreCase(name);

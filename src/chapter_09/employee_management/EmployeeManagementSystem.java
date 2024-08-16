@@ -30,11 +30,17 @@ public class EmployeeManagementSystem {
 
         manager.getEmployeesPerDepartment();
 
+
+
+        // Search by id
+        showSearchResultInTable(manager.searchEmployees(byID(), 104), "[ Employees by ID: ] \n");
+
         // Search by name
         showSearchResultInTable(manager.searchEmployees(byName(), "Alice Johnson"), "[ Employees by name: ] \n");
 
+
         // Search by department
-        showSearchResultInTable(manager.searchEmployees(byDepartment(), "Engineering"), "[ Employees by department: ] \n");
+        showSearchResultInTable(manager.searchEmployees(byDepartment(), "HR"), "[ Employees by department: ] \n");
 
         // Search by salary range
         showSearchResultInTable(manager.searchEmployees(bySalaryRange(), new Double[]{70000.0, 90000.0}), "[ Employees by salary range: ] \n");
@@ -43,10 +49,10 @@ public class EmployeeManagementSystem {
     }
 
     private static void showSearchResultInTable(List<Employee> manager, String tableTitle) {
-        List<Employee> employeesByDepartment = manager;
+        List<Employee> employeeManager = manager;
         System.out.printf("\n %45s", tableTitle);
-        Collections.sort(employeesByDepartment);
-        printEmployees(employeesByDepartment);
+        Collections.sort(employeeManager, EmployeeComparators.byDepartment());
+        printEmployees(employeeManager);
     }
 
     private static void printEmployees(List<Employee> employees) {
