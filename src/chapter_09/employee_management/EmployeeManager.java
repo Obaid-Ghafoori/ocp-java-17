@@ -118,12 +118,26 @@ public class EmployeeManager {
      * Example Output:
      * <pre>
      * ------------- unique Departments --------------
-     * [Engineering, Marketing, HR]
+     * Engineering
+     * Marketing
+     * HR
+     *
      * </pre>
      */
+
     public void getUniqueDepartment() {
-        System.out.println("------------- unique Departments --------------");
-        System.out.println(departmentEmployees.keySet());
+        Set<String> uniqueDepartments = departmentEmployees.keySet();
+
+        // Print header
+        System.out.println("\n+-------- unique Departments -----------+");
+
+        // Print each department on a new line
+        for (String department : uniqueDepartments) {
+            System.out.printf("| \t%-35s |\n", department);
+        }
+
+        // Print footer
+        System.out.println("+---------------- End ------------------+");
     }
 
     /**
