@@ -1,0 +1,92 @@
+@startuml
+
+' General settings for class diagram
+skinparam class {
+    BackgroundColor lightgrey
+    ArrowColor black
+    BorderColor black
+}
+
+package "chapter_09.employee_management" #white{
+
+
+note as N1
+
+      This system manages employee data, including adding, removing,
+      and updating employees. Employees are organized by departments,
+      and features include salary analysis and employee search functionality.
+      The system also supports custom search criteria, comparators, and
+      basic operations on employee data.
+
+end note
+
+' Define the Employee record
+class Employee {
+    - int id
+    - String name
+    - String department
+    - double salary
+
+    + id(): int
+    + name(): String
+    + department(): String
+    + salary(): double
+}
+
+' Define the EmployeeManager class
+class EmployeeManager #lightyellow {
+    - List<Employee> employees
+    - Map<String, List<Employee>> departmentEmployees
+    - Set<Integer> uniqueEmployeeIds
+    - Map<String, Employee> employeeSearchMap
+
+    + addEmployee(Employee employee) : void
+    + removeEmployeeById(int id) : void
+    + updateEmployee(Employee updatedEmployee) : void
+    + calculateAverageSalary(String department) : double
+    + getEmployeeById(int employeeId) : Employee
+    + <T> searchEmployees(criteria: EmployeeCriteria<T>, value: T) : List<Employee>
+    + getEmployeesPerDepartment() : Map<String, List<Employee>>
+}
+
+
+' Define the EmployeeCriteria<T> interface
+interface EmployeeCriteria<T> #lightcyan {
+    + test(Employee employee, T value) : boolean
+}
+
+' Define the EmployeeSearchCriteria class
+class EmployeeSearchCriteria {
+    + search(List<Employee> employees, EmployeeCriteria<?> criteria, Object value) : List<Employee>
+}
+
+' Define the EmployeeComparators class
+class EmployeeComparators {
+    + Comparator<Employee> byName() : Comparator<Employee>
+    + Comparator<Employee> byDepartment() : Comparator<Employee>
+    + Comparator<Employee> bySalary() : Comparator<Employee>
+}
+
+' Define the EmployeeData class
+class EmployeeData {
+    + List<Employee> createSampleEmployees() : List<Employee>
+}
+
+' Define the EmployeeManagementSystem class
+class EmployeeManagementSystem #lightblue{
+    + main(String[] args) : void
+}
+
+
+'directions
+'N1 -right- EmployeeManagementSystem
+
+' Relationships
+EmployeeManager "1" *-- "many" Employee : manages >
+EmployeeManager --> EmployeeSearchCriteria : uses >
+EmployeeSearchCriteria --> EmployeeCriteria : uses >
+EmployeeManagementSystem --> EmployeeManager : uses >
+EmployeeComparators --> Employee : compares >
+EmployeeData --> Employee : creates >
+}
+@enduml
