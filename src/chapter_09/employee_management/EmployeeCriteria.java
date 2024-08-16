@@ -3,7 +3,7 @@ package chapter_09.employee_management;
 /**
  * A functional interface for defining search criteria for employees.
  *
- * @param <T> the type of the employee attribute to be searched
+ * @param <T> the type of the value used in the criterion
  */
 @FunctionalInterface
 public interface EmployeeCriteria<T> {

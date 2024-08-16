@@ -1,7 +1,5 @@
 package chapter_09.employee_management;
 
-import chapter_08.student_grade_filter.StudentSupplier;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -95,14 +93,19 @@ public class EmployeeManager {
                 .orElseThrow(() -> new NoSuchElementException("No such Employee found with id " + employeeIdToUpdate));
     }
 
+
     /**
-     * Searches for an Employee by their name.
+     * Searches for employees based on a generic criterion.
      *
-     * @param name the name of the Employee to search for
-     * @return the Employee with the given name, or null if no such Employee exists
+     * @param criteria the criterion to be used for searching
+     * @param value the value to be used in the criterion
+     * @param <T> the type of the value parameter
+     * @return a list of employees that match the criteria
      */
-    public Employee searchEmployeeByName(String name) {
-        return employeeSearchMap.get(name);
+    public <T> List<Employee> searchEmployees(EmployeeCriteria<T> criteria, T value) {
+        return employees.stream()
+                .filter(employee -> criteria.test(employee, value))
+                .collect(Collectors.toList());
     }
 
     /**

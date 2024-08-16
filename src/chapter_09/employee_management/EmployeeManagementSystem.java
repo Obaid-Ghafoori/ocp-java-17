@@ -7,24 +7,28 @@ public class EmployeeManagementSystem {
         System.out.println("Welcome to Employee Management System");
         System.out.println(printEmployeeManagementSysBanner());
 
-        EmployeeManager employeeManager = new EmployeeManager();
+        EmployeeManager manager = new EmployeeManager();
 
         List<Employee> employees = EmployeeData.getSampleEmployees();
-        employees.forEach(employeeManager::addEmployee);
+        employees.forEach(manager::addEmployee);
 
         Employee employee = new Employee(131, "Mark Bula", "Sales", 2283.50);
-        employeeManager.addEmployee(employee);
+        manager.addEmployee(employee);
 
 
-        Employee existingEmployee = employeeManager.getEmployeeById(110);
+        Employee existingEmployee = manager.getEmployeeById(110);
 
-        employeeManager.updateEmployee(existingEmployee.withAttributes("Tom Tesson", "Operation", 2000.00));
+        manager.updateEmployee(existingEmployee.withAttributes("Tom Tesson", "Operation", 2000.00));
 
-        employeeManager.printEmployees();
+        manager.printEmployees();
 
-        employeeManager.getUniqueDepartment();
+        manager.getUniqueDepartment();
 
-        employeeManager.getEmployeesPerDepartment();
+        manager.getEmployeesPerDepartment();
+
+        // Search by name
+        List<Employee> employeesByName = manager.searchEmployees(EmployeeSearchCriteria.byName(), "Alice Johnson");
+        System.out.println("\n - Employees by name: " + employeesByName);
 
 
     }
