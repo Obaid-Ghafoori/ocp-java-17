@@ -2,6 +2,8 @@ package chapter_09.employee_management;
 
 import java.util.List;
 
+import static chapter_09.employee_management.EmployeeSearchCriteria.*;
+
 public class EmployeeManagementSystem {
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Management System");
@@ -27,10 +29,38 @@ public class EmployeeManagementSystem {
         manager.getEmployeesPerDepartment();
 
         // Search by name
-        List<Employee> employeesByName = manager.searchEmployees(EmployeeSearchCriteria.byName(), "Alice Johnson");
-        System.out.println("\n - Employees by name: " + employeesByName);
+        List<Employee> employeesByName = manager.searchEmployees(byName(), "Alice Johnson");
+        System.out.println("\n - Employees by name: \n" + employeesByName);
+
+        // Search by department
+        showSearchResultInTable(manager.searchEmployees(byDepartment(), "Engineering"), "[ Employees by department: ] \n");
+
+        // Search by salary range
+        showSearchResultInTable(manager.searchEmployees(bySalaryRange(), new Double[]{70000.0, 90000.0}), "[ Employees by salary range: ] \n");
 
 
+    }
+
+    private static void showSearchResultInTable(List<Employee> manager, String tableTitle) {
+        List<Employee> employeesByDepartment = manager;
+        System.out.printf("\n %45s", tableTitle);
+        printEmployees(employeesByDepartment);
+    }
+
+    private static void printEmployees(List<Employee> employees) {
+
+        if (employees.isEmpty()) {
+            System.out.println("No employees found.");
+        } else {
+            System.out.println("+-------------------------------------------------------------+");
+            System.out.printf("| %-5s | %-20s | %-15s | %-10s%n", "ID", "Name", "Department", "Salary\t  |");
+            System.out.println("+-------------------------------------------------------------+");
+            for (Employee emp : employees) {
+                System.out.printf("| %-5d | %-20s | %-15s | $%-10.2f|%n",
+                        emp.id(), emp.name(), emp.department(), emp.salary());
+            }
+            System.out.println("+-------------------End of table------------------------------+");
+        }
     }
 
     private static String printEmployeeManagementSysBanner() {
