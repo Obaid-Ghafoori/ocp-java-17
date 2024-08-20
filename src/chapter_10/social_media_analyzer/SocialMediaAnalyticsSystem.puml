@@ -1,12 +1,29 @@
+
+### Revised UML Diagram (PlantUML)
+
+Here’s an updated PlantUML diagram reflecting the separation of `User` and `UserActivity`:
+
+```plantuml
 @startuml
 
 package "Domain" {
+    class User {
+        +String userId
+        +String username
+        +String email
+        +String getUserId()
+        +String getUsername()
+        +String getEmail()
+    }
+
     class UserActivity {
+        +String activityId
         +String userId
         +String type
         +Date date
         +int postCount
         +double engagement
+        +String getActivityId()
         +String getUserId()
         +String getType()
         +Date getDate()
@@ -14,13 +31,23 @@ package "Domain" {
         +double getEngagement()
     }
 
+    class UserRepository {
+        +List<User> findAll()
+        +User findById(String userId)
+    }
+
     class UserActivityRepository {
         +List<UserActivity> findAll()
-        +UserActivity findById(String userId)
+        +UserActivity findById(String activityId)
     }
 }
 
 package "Application" {
+    class UserService {
+        +List<User> filterUsersWithMoreActivities(int minActivities)
+        +List<User> sortByAttribute(String attribute)
+    }
+
     class UserActivityService {
         +List<UserActivity> filterActiveUsers()
         +List<UserActivity> sortByEngagement()
@@ -32,9 +59,14 @@ package "Application" {
 }
 
 package "Infrastructure" {
+    class UserRepositoryImpl {
+        +List<User> findAll()
+        +User findById(String userId)
+    }
+
     class UserActivityRepositoryImpl {
         +List<UserActivity> findAll()
-        +UserActivity findById(String userId)
+        +UserActivity findById(String activityId)
     }
 }
 
@@ -44,9 +76,13 @@ package "UI" {
     }
 }
 
+UserRepository <|.. UserRepositoryImpl : implements
 UserActivityRepository <|.. UserActivityRepositoryImpl : implements
+UserService ..> UserRepository : uses
 UserActivityService ..> UserActivityRepository : uses
+UserService ..> User : processes
 UserActivityService ..> UserActivity : processes
+AnalyticsController ..> UserService : interacts
 AnalyticsController ..> UserActivityService : interacts
 
 @enduml
