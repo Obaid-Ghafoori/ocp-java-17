@@ -1,0 +1,52 @@
+@startuml
+
+package "Domain" {
+    class UserActivity {
+        +String userId
+        +String type
+        +Date date
+        +int postCount
+        +double engagement
+        +String getUserId()
+        +String getType()
+        +Date getDate()
+        +int getPostCount()
+        +double getEngagement()
+    }
+
+    class UserActivityRepository {
+        +List<UserActivity> findAll()
+        +UserActivity findById(String userId)
+    }
+}
+
+package "Application" {
+    class UserActivityService {
+        +List<UserActivity> filterActiveUsers()
+        +List<UserActivity> sortByEngagement()
+        +Map<String, List<UserActivity>> groupByType()
+        +double calculateTotalEngagement()
+        +Optional<UserActivity> findMostRecent()
+        +Optional<UserActivity> findHighEngagement()
+    }
+}
+
+package "Infrastructure" {
+    class UserActivityRepositoryImpl {
+        +List<UserActivity> findAll()
+        +UserActivity findById(String userId)
+    }
+}
+
+package "UI" {
+    class AnalyticsController {
+        +void showAnalytics()
+    }
+}
+
+UserActivityRepository <|.. UserActivityRepositoryImpl : implements
+UserActivityService ..> UserActivityRepository : uses
+UserActivityService ..> UserActivity : processes
+AnalyticsController ..> UserActivityService : interacts
+
+@enduml
