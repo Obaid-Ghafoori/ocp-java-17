@@ -29,5 +29,13 @@ public class AnalyticsController {
     public void showAnalytics() {
         List<User> superActiveUsers = userService.filterUsersWithMoreActivities(15);
         System.out.println("Active Users: " + superActiveUsers);
+
+        //sort by username
+        var byUsername = userService.sortByAttribute("username");
+        System.out.println("Sorted out by username: " + byUsername);
+
+        //sort by email
+        var byEmail = userService.sortByAttribute("email");
+        System.out.println("Sorted out by email: " + byEmail);
     }
 }

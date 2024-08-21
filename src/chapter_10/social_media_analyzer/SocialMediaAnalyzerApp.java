@@ -38,7 +38,7 @@ public class SocialMediaAnalyzerApp {
         User user1 = new User(1L, "JohnDoe", "john@example.com", 15);  // 15 activities
         User user2 = new User(2L, "JaneSmith", "jane@example.com", 5);  // 5 activities
         User user3 = new User(3L, "BobBrown", "bob@example.com", 12);   // 12 activities
-        User user4 = new User(4L, "AliceBlue", "alice@example.com", 7); // 7 activities
+        User user4 = new User(4L, "AliceBlue", "d-alice@example.com", 7); // 7 activities
         User user5 = new User(5L, "TomGreen", "tom@example.com", 20);   // 20 activities
 
         // Saving the users to the repository

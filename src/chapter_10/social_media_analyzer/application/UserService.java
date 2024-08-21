@@ -3,6 +3,7 @@ package chapter_10.social_media_analyzer.application;
 import chapter_10.social_media_analyzer.domain.User;
 import chapter_10.social_media_analyzer.domain.UserRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,5 +40,34 @@ public class UserService {
                 .filter(user -> user.postCount() > minActivities)
                 .collect(Collectors.toList());
 
+    }
+
+    /**
+     * Sorts and returns a list of users based on the specified attribute.
+     * The attribute can be "username", "email", or "postCount".
+     *
+     * @param attribute the attribute by which users should be sorted; valid options are "username", "email", or "postCount"
+     * @return a {@code List<User>} sorted by the specified attribute
+     * @throws IllegalArgumentException if the {@code attribute} is not one of the allowed values
+     */
+    public List<User> sortByAttribute(String attribute) {
+        if (!"username".equals(attribute) && !"email".equals(attribute) && !"postCount".equals(attribute)){
+            throw new IllegalArgumentException("Invalid attribute: " + attribute);
+        }
+
+       return userRepository.findAll().stream()
+                .sorted(getComparatorBy(attribute))
+                .collect(Collectors.toList());
+    }
+
+
+
+    private static Comparator<User> getComparatorBy(String attribute) {
+        return switch (attribute) {
+            case "username" -> Comparator.comparing(User::username);
+            case "email" -> Comparator.comparing(User::email);
+            case "postCount" -> Comparator.comparingInt(User::postCount);
+            default -> throw new IllegalArgumentException("Unexpected value: " + attribute);
+        };
     }
 }
