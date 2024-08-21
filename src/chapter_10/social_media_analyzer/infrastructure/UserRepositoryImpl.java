@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * In-memory implementation of the UserRepository interface.
  */
 public class UserRepositoryImpl implements UserRepository {
-    private final Map<String, User> userDatabase = new HashMap<>();
+    private final Map<Long, User> userDatabase = new HashMap<>();
 
     @Override
     public List<User> findAll() {
@@ -41,5 +41,11 @@ public class UserRepositoryImpl implements UserRepository {
         }
         userDatabase.remove(userId);
 
+    }
+
+    @Override
+    public void saveAll(List<User> users) {
+        Map<Long, User> newUsers = users.stream().collect(Collectors.toMap(User::userId, user -> user));
+        userDatabase.putAll(newUsers);
     }
 }

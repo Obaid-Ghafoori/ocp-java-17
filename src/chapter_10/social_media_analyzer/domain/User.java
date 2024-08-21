@@ -6,7 +6,7 @@ import java.util.Objects;
  * Represents a user in the system.
  */
 public record User(
-        String userId,
+        long userId,
         String username,
         String email,
         int postCount

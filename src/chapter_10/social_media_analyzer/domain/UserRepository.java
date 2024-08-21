@@ -37,5 +37,7 @@ public interface UserRepository {
      * @param userId the unique identifier of the user to be deleted
      */
     void deleteById(String userId);
+
+    void saveAll(List<User> asList);
 }
 
