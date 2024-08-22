@@ -29,21 +29,44 @@ public class AnalyticsController {
      */
     public void showAnalytics() {
         List<User> superActiveUsers = userService.filterUsersWithMoreActivities(15);
-        System.out.println("Active Users: " + superActiveUsers);
+        printInTableFormate(superActiveUsers, "active users list");
 
         //sort by username
         var byUsername = userService.sortByAttribute("username");
-        System.out.println("Sorted out by username: " + byUsername);
+        printInTableFormate(byUsername, "Sorted out by username:");
 
         //sort by email
-        var byEmail = userService.sortByAttribute("email");
-        System.out.println("Sorted out by email: " + byEmail);
+//        var byEmail = userService.sortByAttribute("email");
+//        System.out.println("Sorted out by username: " + byUsername);
+
         showHighestEngagedUser();
     }
 
-    private void showHighestEngagedUser(){
-       Optional<User> highestEngagedUser = userService.findHighestEngagementUser();
-        System.out.println("highest engagement user with post count of: " + highestEngagedUser.get().postCount());
+    private static void printInTableFormate(List<User> superActiveUsers, String title) {
+        // Define the column width and table width
+        String format = "%-10s %-20s %-25s %-10s %-10s %-10s";
+        int tableWidth = String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes").length();
+
+        // Center the title
+        int titlePadding = (tableWidth - title.length()) / 2;
+        String centeredTitle = String.format("%" + titlePadding + "s%s", "", title.toUpperCase());
+
+        // Print the centered title and the table
+        System.out.println("\n" + centeredTitle);
+        System.out.println(String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes"));
+        System.out.println("-------------------------------------------------------------------------------------");
+
+        for (User user : superActiveUsers) {
+            System.out.println(String.format(format,
+                    user.userId(), user.username(), user.email(),
+                    user.postCount(), user.commentCount(), user.like()));
+        }
+        System.out.println("-------------------------------------------------------------------------------------");
+    }
+
+    private void showHighestEngagedUser() {
+        Optional<Double> highestEngagedUser = userService.findHighestEngagementUser();
+        System.out.println("highest engagement user with the engagement score of: " + highestEngagedUser.get());
 
     }
 }

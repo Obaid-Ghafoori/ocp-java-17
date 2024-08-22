@@ -73,14 +73,15 @@ public class UserService {
 
     /**
      * Displays the user with the highest engagement.
-     *
+     * <p>
      * This method identifies and displays the user with the highest engagement score.
      * Engagement is typically a composite metric based on various factors such as activity frequency,
      * types of activities, etc.
      */
-    public Optional<User> findHighestEngagementUser() {
+    public Optional<Double> findHighestEngagementUser() {
         return userRepository.findAll().stream()
-                .max(Comparator.comparing(this::calculateEngagementScore));
+                .map(this::calculateEngagementScore)
+                .max(Double::compare);
     }
 
     /**
@@ -90,6 +91,9 @@ public class UserService {
      * @return the engagement score
      */
     private double calculateEngagementScore(User user) {
-        return user.postCount();
+        var postCounts = user.postCount();
+        var commentCounts = user.commentCount() * 0.5;
+        var likeCounts = user.like() * 0.2;
+        return postCounts + commentCounts + likeCounts;
     }
 }

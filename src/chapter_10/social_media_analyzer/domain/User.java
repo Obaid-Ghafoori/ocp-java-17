@@ -9,7 +9,9 @@ public record User(
         long userId,
         String username,
         String email,
-        int postCount
+        int postCount,
+        int commentCount,
+        int like
 ) {
 
     /**
