@@ -5,6 +5,7 @@ import chapter_10.social_media_analyzer.domain.UserRepository;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -51,15 +52,14 @@ public class UserService {
      * @throws IllegalArgumentException if the {@code attribute} is not one of the allowed values
      */
     public List<User> sortByAttribute(String attribute) {
-        if (!"username".equals(attribute) && !"email".equals(attribute) && !"postCount".equals(attribute)){
+        if (!"username".equals(attribute) && !"email".equals(attribute) && !"postCount".equals(attribute)) {
             throw new IllegalArgumentException("Invalid attribute: " + attribute);
         }
 
-       return userRepository.findAll().stream()
+        return userRepository.findAll().stream()
                 .sorted(getComparatorBy(attribute))
                 .collect(Collectors.toList());
     }
-
 
 
     private static Comparator<User> getComparatorBy(String attribute) {
@@ -69,5 +69,27 @@ public class UserService {
             case "postCount" -> Comparator.comparingInt(User::postCount);
             default -> throw new IllegalArgumentException("Unexpected value: " + attribute);
         };
+    }
+
+    /**
+     * Displays the user with the highest engagement.
+     *
+     * This method identifies and displays the user with the highest engagement score.
+     * Engagement is typically a composite metric based on various factors such as activity frequency,
+     * types of activities, etc.
+     */
+    public Optional<User> findHighestEngagementUser() {
+        return userRepository.findAll().stream()
+                .max(Comparator.comparing(this::calculateEngagementScore));
+    }
+
+    /**
+     * Calculates the engagement score for a user.
+     *
+     * @param user the user whose engagement score is to be calculated
+     * @return the engagement score
+     */
+    private double calculateEngagementScore(User user) {
+        return user.postCount();
     }
 }

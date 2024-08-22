@@ -4,6 +4,7 @@ import chapter_10.social_media_analyzer.application.UserService;
 import chapter_10.social_media_analyzer.domain.User;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The AnalyticsController class handles user interactions
@@ -37,5 +38,12 @@ public class AnalyticsController {
         //sort by email
         var byEmail = userService.sortByAttribute("email");
         System.out.println("Sorted out by email: " + byEmail);
+        showHighestEngagedUser();
+    }
+
+    private void showHighestEngagedUser(){
+       Optional<User> highestEngagedUser = userService.findHighestEngagementUser();
+        System.out.println("highest engagement user with post count of: " + highestEngagedUser.get().postCount());
+
     }
 }
