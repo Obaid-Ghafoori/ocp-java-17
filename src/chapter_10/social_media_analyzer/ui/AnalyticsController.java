@@ -2,10 +2,9 @@ package chapter_10.social_media_analyzer.ui;
 
 import chapter_10.social_media_analyzer.application.UserService;
 import chapter_10.social_media_analyzer.domain.User;
+import chapter_10.social_media_analyzer.infrastructure.TablePrinter;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * The AnalyticsController class handles user interactions
@@ -31,41 +30,46 @@ public class AnalyticsController {
      */
     public void showAnalytics() {
         List<User> superActiveUsers = userService.filterUsersWithMoreActivities(15);
-        displayUserAnalyticsTable(superActiveUsers, "active users list");
+        TablePrinter.printTable(
+                superActiveUsers,
+                "User Data",
+                user -> new Object[]{
+                        user.userId(), user.username(), user.email(),
+                        user.postCount(), user.commentCount(), user.likeCount(), user.shareCount()
+                },
+                "User"
+        );
+
 
         //sort by username
         var byUsername = userService.sortByAttribute("username");
-        displayUserAnalyticsTable(byUsername, "Sorted out by username:");
-        
+        TablePrinter.printTable(
+                byUsername,
+                "Sorted out by username",
+                user -> new Object[]{
+                        user.userId(), user.username(), user.email(),
+                        user.postCount(), user.commentCount(), user.likeCount(), user.shareCount()
+                },
+                "User"
+        );
+
         showHighestEngagedUser();
-        System.out.println(userService.collectUserEngagementData());
-    }
 
-    private static void displayUserAnalyticsTable(List<User> superActiveUsers, String title) {
-        // Define the column width and table width
-        String format = "%-10s %-20s %-25s %-10s %-10s %-10s %5s";
-        int tableWidth = String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes", "Share").length();
+        TablePrinter.printTable(
+                userService.collectUserEngagementData(),
+                "User Engagement Data",
+                engagement -> new Object[]{
+                        engagement.user(),
+                        String.format("%.2f", engagement.engagementScore()),
+                        engagement.totalActivities()
+                },
+                "UserEngagement"
+        );
 
-        // Center the title
-        int titlePadding = (tableWidth - title.length()) / BY_TWO;
-        String centeredTitle = String.format("%" + titlePadding + "s%s", "", title.toUpperCase());
-
-        // Print the centered title and the table
-        System.out.println("\n" + centeredTitle);
-        System.out.println(String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes", "Share"));
-        System.out.println("------------------------------------------------------------------------------------------------");
-
-           for (User user : superActiveUsers) {
-               System.out.println(String.format(format,
-                       user.userId(), user.username(), user.email(),
-                       user.postCount(), user.commentCount(), user.likeCount(), user.shareCount()));
-           }
-        System.out.println("------------------------------------------------------------------------------------------------");
     }
 
     private void showHighestEngagedUser() {
         var highestEngagedUser = userService.findHighestEngagementUser();
         System.out.println("highest engagement user with the engagement score of: " + highestEngagedUser.get());
-
     }
 }

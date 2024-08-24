@@ -4,6 +4,8 @@ import chapter_10.social_media_analyzer.domain.User;
 import chapter_10.social_media_analyzer.domain.UserEngagement;
 import chapter_10.social_media_analyzer.domain.UserRepository;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -93,10 +95,10 @@ public class UserService {
     public List<UserEngagement> collectUserEngagementData() {
         return userRepository.findAll().stream()
                 .map(user -> new UserEngagement(
-                user.username(),
-                calculateEngagementScore(user),
-                getTotalActivities(user)
-        )).collect(Collectors.toList());
+                        user.username(),
+                        calculateEngagementScore(user),
+                        getTotalActivities(user)
+                )).collect(Collectors.toList());
     }
 
     private static int getTotalActivities(User user) {
@@ -107,9 +109,14 @@ public class UserService {
     }
 
     private double calculateEngagementScore(User user) {
-        return user.postCount()
+        var score = user.postCount()
                 + user.commentCount() * 0.5
                 + user.likeCount() * 0.2
                 + user.shareCount() * 0.8;
+
+        // Round the score to two decimal places
+        BigDecimal roundedScore = new BigDecimal(score).setScale(2, RoundingMode.HALF_UP);
+
+        return roundedScore.doubleValue();
     }
 }

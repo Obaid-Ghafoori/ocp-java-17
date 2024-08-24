@@ -15,7 +15,6 @@ public class SocialMediaAnalyzerApp {
         // initialize user Repository
         UserRepository userRepository = new UserRepositoryImpl();
 
-
         // Add some sample users to the repository
         addSampleUsers(userRepository);
 
