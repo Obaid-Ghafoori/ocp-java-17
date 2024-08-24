@@ -41,8 +41,8 @@ public class AnalyticsController {
 
     private static void displayUserAnalyticsTable(List<User> superActiveUsers, String title) {
         // Define the column width and table width
-        String format = "%-10s %-20s %-25s %-10s %-10s %-10s";
-        int tableWidth = String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes").length();
+        String format = "%-10s %-20s %-25s %-10s %-10s %-10s %5s";
+        int tableWidth = String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes", "Share").length();
 
         // Center the title
         int titlePadding = (tableWidth - title.length()) / BY_TWO;
@@ -50,15 +50,15 @@ public class AnalyticsController {
 
         // Print the centered title and the table
         System.out.println("\n" + centeredTitle);
-        System.out.println(String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes"));
-        System.out.println("-------------------------------------------------------------------------------------");
+        System.out.println(String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes", "Share"));
+        System.out.println("------------------------------------------------------------------------------------------------");
 
         for (User user : superActiveUsers) {
             System.out.println(String.format(format,
                     user.userId(), user.username(), user.email(),
-                    user.postCount(), user.commentCount(), user.likeCount()));
+                    user.postCount(), user.commentCount(), user.likeCount(), user.shareCount()));
         }
-        System.out.println("-------------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------------");
     }
 
     private void showHighestEngagedUser() {

@@ -11,7 +11,8 @@ public record User(
         String email,
         int postCount,
         int commentCount,
-        int likeCount
+        int likeCount,
+        int shareCount
 ) {
 
     /**
