@@ -29,20 +29,16 @@ public class AnalyticsController {
      */
     public void showAnalytics() {
         List<User> superActiveUsers = userService.filterUsersWithMoreActivities(15);
-        printInTableFormate(superActiveUsers, "active users list");
+        displayUserAnalyticsTable(superActiveUsers, "active users list");
 
         //sort by username
         var byUsername = userService.sortByAttribute("username");
-        printInTableFormate(byUsername, "Sorted out by username:");
-
-        //sort by email
-//        var byEmail = userService.sortByAttribute("email");
-//        System.out.println("Sorted out by username: " + byUsername);
-
+        displayUserAnalyticsTable(byUsername, "Sorted out by username:");
+        
         showHighestEngagedUser();
     }
 
-    private static void printInTableFormate(List<User> superActiveUsers, String title) {
+    private static void displayUserAnalyticsTable(List<User> superActiveUsers, String title) {
         // Define the column width and table width
         String format = "%-10s %-20s %-25s %-10s %-10s %-10s";
         int tableWidth = String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes").length();
