@@ -16,29 +16,9 @@ package "Domain" {
         +String getEmail()
     }
 
-    class UserActivity {
-        +String activityId
-        +String userId
-        +String type
-        +Date date
-        +int postCount
-        +double engagement
-        +String getActivityId()
-        +String getUserId()
-        +String getType()
-        +Date getDate()
-        +int getPostCount()
-        +double getEngagement()
-    }
-
     class UserRepository {
         +List<User> findAll()
         +User findById(String userId)
-    }
-
-    class UserActivityRepository {
-        +List<UserActivity> findAll()
-        +UserActivity findById(String activityId)
     }
 }
 
@@ -47,26 +27,12 @@ package "Application" {
         +List<User> filterUsersWithMoreActivities(int minActivities)
         +List<User> sortByAttribute(String attribute)
     }
-
-    class UserActivityService {
-        +List<UserActivity> filterActiveUsers()
-        +List<UserActivity> sortByEngagement()
-        +Map<String, List<UserActivity>> groupByType()
-        +double calculateTotalEngagement()
-        +Optional<UserActivity> findMostRecent()
-        +Optional<UserActivity> findHighEngagement()
-    }
 }
 
 package "Infrastructure" {
     class UserRepositoryImpl {
         +List<User> findAll()
         +User findById(String userId)
-    }
-
-    class UserActivityRepositoryImpl {
-        +List<UserActivity> findAll()
-        +UserActivity findById(String activityId)
     }
 }
 
@@ -76,13 +42,16 @@ package "UI" {
     }
 }
 
-UserRepository <|.. UserRepositoryImpl : implements
-UserActivityRepository <|.. UserActivityRepositoryImpl : implements
-UserService ..> UserRepository : uses
-UserActivityService ..> UserActivityRepository : uses
-UserService ..> User : processes
-UserActivityService ..> UserActivity : processes
-AnalyticsController ..> UserService : interacts
-AnalyticsController ..> UserActivityService : interacts
+package "App" {
+    class SocialMediaAnalyzerApp {
+        +static void main(String[] args)
+    }
+}
 
+
+UserRepository <|.. UserRepositoryImpl : implements
+UserService ..> UserRepository : uses
+UserService ..> User : processes
+AnalyticsController ..> UserService : interacts
+SocialMediaAnalyzerApp ..> AnalyticsController : runs
 @enduml
