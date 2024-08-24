@@ -12,6 +12,7 @@ import java.util.Optional;
  */
 public class AnalyticsController {
 
+    public static final int BY_TWO = 2;
     private final UserService userService;
 
     /**
@@ -44,7 +45,7 @@ public class AnalyticsController {
         int tableWidth = String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes").length();
 
         // Center the title
-        int titlePadding = (tableWidth - title.length()) / 2;
+        int titlePadding = (tableWidth - title.length()) / BY_TWO;
         String centeredTitle = String.format("%" + titlePadding + "s%s", "", title.toUpperCase());
 
         // Print the centered title and the table
