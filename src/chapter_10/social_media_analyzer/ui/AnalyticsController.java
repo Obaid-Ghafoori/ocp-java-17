@@ -38,6 +38,7 @@ public class AnalyticsController {
         displayUserAnalyticsTable(byUsername, "Sorted out by username:");
         
         showHighestEngagedUser();
+        System.out.println(userService.collectUserEngagementData());
     }
 
     private static void displayUserAnalyticsTable(List<User> superActiveUsers, String title) {
@@ -54,11 +55,11 @@ public class AnalyticsController {
         System.out.println(String.format(format, "User ID", "Username", "Email", "Posts", "Comments", "Likes", "Share"));
         System.out.println("------------------------------------------------------------------------------------------------");
 
-        for (User user : superActiveUsers) {
-            System.out.println(String.format(format,
-                    user.userId(), user.username(), user.email(),
-                    user.postCount(), user.commentCount(), user.likeCount(), user.shareCount()));
-        }
+           for (User user : superActiveUsers) {
+               System.out.println(String.format(format,
+                       user.userId(), user.username(), user.email(),
+                       user.postCount(), user.commentCount(), user.likeCount(), user.shareCount()));
+           }
         System.out.println("------------------------------------------------------------------------------------------------");
     }
 

@@ -1,11 +1,11 @@
 package chapter_10.social_media_analyzer.application;
 
 import chapter_10.social_media_analyzer.domain.User;
+import chapter_10.social_media_analyzer.domain.UserEngagement;
 import chapter_10.social_media_analyzer.domain.UserRepository;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -83,22 +83,33 @@ public class UserService {
         return userRepository.findAll().stream()
                 .map(this::calculateEngagementScore)
                 .max(Double::compare);
-//                .collect(Collectors.toMap(
-//                        user -> user,
-//                        this::calculateEngagementScore
-//                ));
     }
 
     /**
-     * Calculates the engagement score for a user.
+     * Custom collector to aggregate user engagement data.
      *
-     * @param user the user whose engagement score is to be calculated
-     * @return the engagement score
+     * @return A list of UserEngagement objects with engagement scores and total activities.
      */
+    public List<UserEngagement> collectUserEngagementData() {
+        return userRepository.findAll().stream()
+                .map(user -> new UserEngagement(
+                user.username(),
+                calculateEngagementScore(user),
+                getTotalActivities(user)
+        )).collect(Collectors.toList());
+    }
+
+    private static int getTotalActivities(User user) {
+        return user.commentCount()
+                + user.likeCount()
+                + user.shareCount()
+                + user.postCount();
+    }
+
     private double calculateEngagementScore(User user) {
-       return user.postCount()
-        + user.commentCount() * 0.5
-        + user.likeCount() * 0.2
-        + user.shareCount() * 0.8;
+        return user.postCount()
+                + user.commentCount() * 0.5
+                + user.likeCount() * 0.2
+                + user.shareCount() * 0.8;
     }
 }
