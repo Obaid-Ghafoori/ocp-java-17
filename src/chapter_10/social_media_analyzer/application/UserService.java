@@ -5,6 +5,7 @@ import chapter_10.social_media_analyzer.domain.UserRepository;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -82,6 +83,10 @@ public class UserService {
         return userRepository.findAll().stream()
                 .map(this::calculateEngagementScore)
                 .max(Double::compare);
+//                .collect(Collectors.toMap(
+//                        user -> user,
+//                        this::calculateEngagementScore
+//                ));
     }
 
     /**
@@ -91,9 +96,9 @@ public class UserService {
      * @return the engagement score
      */
     private double calculateEngagementScore(User user) {
-        var postCounts = user.postCount();
-        var commentCounts = user.commentCount() * 0.5;
-        var likeCounts = user.likeCount() * 0.2;
-        return postCounts + commentCounts + likeCounts;
+       return user.postCount()
+        + user.commentCount() * 0.5
+        + user.likeCount() * 0.2
+        + user.shareCount() * 0.8;
     }
 }

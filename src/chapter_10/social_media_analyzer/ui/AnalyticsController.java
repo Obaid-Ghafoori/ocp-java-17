@@ -4,6 +4,7 @@ import chapter_10.social_media_analyzer.application.UserService;
 import chapter_10.social_media_analyzer.domain.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -62,7 +63,7 @@ public class AnalyticsController {
     }
 
     private void showHighestEngagedUser() {
-        Optional<Double> highestEngagedUser = userService.findHighestEngagementUser();
+        var highestEngagedUser = userService.findHighestEngagementUser();
         System.out.println("highest engagement user with the engagement score of: " + highestEngagedUser.get());
 
     }
