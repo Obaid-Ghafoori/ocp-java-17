@@ -56,7 +56,7 @@ public class AnalyticsController {
         for (User user : superActiveUsers) {
             System.out.println(String.format(format,
                     user.userId(), user.username(), user.email(),
-                    user.postCount(), user.commentCount(), user.like()));
+                    user.postCount(), user.commentCount(), user.likeCount()));
         }
         System.out.println("-------------------------------------------------------------------------------------");
     }

@@ -93,7 +93,7 @@ public class UserService {
     private double calculateEngagementScore(User user) {
         var postCounts = user.postCount();
         var commentCounts = user.commentCount() * 0.5;
-        var likeCounts = user.like() * 0.2;
+        var likeCounts = user.likeCount() * 0.2;
         return postCounts + commentCounts + likeCounts;
     }
 }
