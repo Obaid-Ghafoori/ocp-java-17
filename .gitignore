@@ -26,3 +26,62 @@ replay_pid*
 .idea
 .idea/
 ocp-java-17.iml
+
+# Maven output folders
+/target/
+
+# Compiled class files
+**/*.class
+
+# Maven specific files
+.mvn/
+.settings/
+.project
+.classpath
+mvnw
+mvnw.cmd
+
+# Eclipse specific files
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# IntelliJ specific files
+.idea/
+*.iml
+*.ipr
+
+# NetBeans specific files
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# macOS specific files
+.DS_Store
+
+# Logs and temporary files
+*.log
+*.out
+*.bak
+*.swp
+
+# Generated files
+hs_err_pid*
+.DS_Store
+.classpath
+.project
+.settings/
+Thumbs.db
+
+# Local environment-specific files
+
