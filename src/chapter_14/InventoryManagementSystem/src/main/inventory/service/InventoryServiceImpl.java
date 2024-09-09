@@ -2,10 +2,12 @@ package chapter_14.InventoryManagementSystem.src.main.inventory.service;
 
 import chapter_14.InventoryManagementSystem.src.main.inventory.dao.InventoryItemDAOImpl;
 import chapter_14.InventoryManagementSystem.src.main.inventory.model.InventoryItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
-
 public class InventoryServiceImpl implements InventoryService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(InventoryServiceImpl.class);
 
     private final InventoryItemDAOImpl itemDAO;
 
@@ -20,12 +22,11 @@ public class InventoryServiceImpl implements InventoryService {
      */
     @Override
     public void addItem(InventoryItem item) {
-        boolean isItemExist = itemDAO.itemExists(item.getName(), item.getCategory());
-
-        if (isItemExist) {
-            System.out.println("Item already exists in the database.");
-        } else {
+        if (!itemDAO.itemExists(item.getName(), item.getCategory())) {
             itemDAO.addItem(item);
+            LOGGER.info( "Item added successfully.");
+        } else {
+            LOGGER.error("Item already exists in the database.");
         }
 
     }
