@@ -47,5 +47,7 @@ public interface InventoryItemDAO {
      * @param itemId the unique identifier of the inventory item to delete
      */
     void deleteItem(int itemId);
+
+    boolean itemExists(String name, String category);
 }
 

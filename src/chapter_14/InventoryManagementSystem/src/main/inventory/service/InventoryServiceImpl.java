@@ -20,7 +20,13 @@ public class InventoryServiceImpl implements InventoryService {
      */
     @Override
     public void addItem(InventoryItem item) {
-        itemDAO.addItem(item);
+        boolean isItemExist = itemDAO.itemExists(item.getName(), item.getCategory());
+
+        if (isItemExist) {
+            System.out.println("Item already exists in the database.");
+        } else {
+            itemDAO.addItem(item);
+        }
 
     }
 

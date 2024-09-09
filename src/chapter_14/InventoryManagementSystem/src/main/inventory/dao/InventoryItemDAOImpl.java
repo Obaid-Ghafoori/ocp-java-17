@@ -3,10 +3,7 @@ package chapter_14.InventoryManagementSystem.src.main.inventory.dao;
 import chapter_14.InventoryManagementSystem.src.main.inventory.model.InventoryItem;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Properties;
 
@@ -58,6 +55,30 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
     @Override
     public void deleteItem(int itemId) {
 
+    }
+
+    /**
+     *  checks the database for the item, if it already exists
+     * @param name of the item
+     * @param category category to which item belongs to
+     * @return true if the item already exist
+     */
+    @Override
+    public boolean itemExists(String name, String category) {
+            String sql = "SELECT COUNT(*) FROM Inventory WHERE name = ? AND category = ?";
+            try (Connection conn = DriverManager.getConnection(url, user, password);
+                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setString(1, name);
+                stmt.setString(2, category);
+
+                ResultSet rs = stmt.executeQuery();
+                rs.next(); // Move to the first row
+                return rs.getInt(1) > 0; // If count > 0, item exists
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
     }
 
     private void loadDBProperties() {
