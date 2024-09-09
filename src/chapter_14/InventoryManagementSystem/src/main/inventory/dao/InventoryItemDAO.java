@@ -1,6 +1,6 @@
-package chapter_14.InventoryManagementSystem.src.main.java.com.inventory.dao;
+package chapter_14.InventoryManagementSystem.src.main.inventory.dao;
 
-import chapter_14.InventoryManagementSystem.src.main.java.com.inventory.model.InventoryItem;
+import chapter_14.InventoryManagementSystem.src.main.inventory.model.InventoryItem;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface InventoryItemDAO {
      *
      * @param item the {@link InventoryItem} to be added
      */
-    void addItem(InventoryItem item);
+    void addItem(InventoryItem item) throws ClassNotFoundException;
 
     /**
      * Retrieves an inventory item by its unique identifier.
