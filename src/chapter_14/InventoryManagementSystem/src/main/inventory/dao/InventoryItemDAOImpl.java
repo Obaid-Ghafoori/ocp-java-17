@@ -39,6 +39,26 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
 
     @Override
     public InventoryItem getItemById(int itemId) {
+        String sql = "SELECT * FROM Inventory WHERE item_id = ?";
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, itemId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new InventoryItem(
+                        rs.getInt("item_id"),
+                        rs.getString("name"),
+                        rs.getString("category"),
+                        rs.getInt("quantity"),
+                        rs.getBigDecimal("price"),
+                        rs.getDate("date_added").toLocalDate()
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

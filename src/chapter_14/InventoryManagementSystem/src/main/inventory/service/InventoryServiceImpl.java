@@ -39,7 +39,7 @@ public class InventoryServiceImpl implements InventoryService {
      */
     @Override
     public InventoryItem getItemById(int itemId) {
-        return null;
+        return itemDAO.getItemById(itemId);
     }
 
     /**

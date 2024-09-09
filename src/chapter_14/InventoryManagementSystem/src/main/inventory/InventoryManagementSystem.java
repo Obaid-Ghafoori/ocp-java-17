@@ -18,12 +18,13 @@ public class InventoryManagementSystem {
         InventoryService service = new InventoryServiceImpl();
 
         // Create a sample InventoryItem
-        InventoryItem newItem = new InventoryItem(0, "Smartwatch", "Wearables", 50, new BigDecimal("199.99"), LocalDate.now());
+        InventoryItem newItem = new InventoryItem(1, "Smartphone", "Wearables", 10, new BigDecimal("299.99"), LocalDate.now());
 
         // Add the item to the database
         service.addItem(newItem);
 
-
+        InventoryItem itemById = service.getItemById(newItem.getItemId());
+        System.out.println(itemById.getItemId());
     }
 
 }
