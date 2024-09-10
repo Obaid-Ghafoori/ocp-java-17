@@ -114,7 +114,16 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
      */
     @Override
     public void deleteItem(int itemId) {
+        String sql = "DELETE FROM inventory WHERE item_Id=?";
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
+            stmt.setInt(1,itemId);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

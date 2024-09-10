@@ -69,6 +69,8 @@ public class InventoryServiceImpl implements InventoryService {
      */
     @Override
     public void deleteItem(int itemId) {
+        itemDAO.deleteItem(itemId);
+        getAllItems();
 
     }
 }

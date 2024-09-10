@@ -18,7 +18,7 @@ public class InventoryManagementSystem {
         InventoryService service = new InventoryServiceImpl();
 
         // Create a sample InventoryItem
-        InventoryItem newItem = new InventoryItem(1, "Smartphone", "Wearables", 10, new BigDecimal("299.99"), LocalDate.now());
+        InventoryItem newItem = new InventoryItem(3, "iphone", "Wearables", 10, new BigDecimal("299.99"), LocalDate.now());
 
         // Add the item to the database
         service.addItem(newItem);
@@ -28,6 +28,9 @@ public class InventoryManagementSystem {
 
         //print all inventory items
         service.getAllItems().forEach(System.out::println);
+
+        // delete item
+//        service.deleteItem(newItem.getItemId());
     }
 
 }
