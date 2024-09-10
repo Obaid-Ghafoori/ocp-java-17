@@ -25,6 +25,9 @@ public class InventoryManagementSystem {
 
         InventoryItem itemById = service.getItemById(newItem.getItemId());
         System.out.println(itemById.getItemId());
+
+        //print all inventory items
+        service.getAllItems().forEach(System.out::println);
     }
 
 }

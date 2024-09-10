@@ -49,7 +49,7 @@ public class InventoryServiceImpl implements InventoryService {
      */
     @Override
     public List<InventoryItem> getAllItems() {
-        return null;
+        return itemDAO.getAllItems();
     }
 
     /**

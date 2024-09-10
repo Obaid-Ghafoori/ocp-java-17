@@ -4,6 +4,7 @@ import chapter_14.InventoryManagementSystem.src.main.inventory.model.InventoryIt
 
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -37,6 +38,12 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
         }
     }
 
+    /**
+     * Retrieves an inventory item by its ID.
+     *
+     * @param itemId The ID of the item to retrieve.
+     * @return The retrieved inventory item, or null if not found.
+     */
     @Override
     public InventoryItem getItemById(int itemId) {
         String sql = "SELECT * FROM Inventory WHERE item_id = ?";
@@ -62,16 +69,49 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
         return null;
     }
 
+
+    /**
+     * Retrieves all inventory items.
+     *
+     * @return A list of all inventory items.
+     */
     @Override
     public List<InventoryItem> getAllItems() {
-        return null;
-    }
+        List<InventoryItem> items = new ArrayList<>();
+        String sql = "SELECT * FROM Inventory";
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
+            while (rs.next()) {
+                items.add(new InventoryItem(
+                        rs.getInt("item_id"),
+                        rs.getString("name"),
+                        rs.getString("category"),
+                        rs.getInt("quantity"),
+                        rs.getBigDecimal("price"),
+                        rs.getDate("date_added").toLocalDate()
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
+    /**
+     * Updates the details of an existing inventory item.
+     *
+     * @param item The item to update.
+     */
     @Override
     public void updateItem(InventoryItem item) {
-
     }
 
+    /**
+     * Deletes an inventory item by its ID.
+     *
+     * @param itemId The ID of the item to delete.
+     */
     @Override
     public void deleteItem(int itemId) {
 
