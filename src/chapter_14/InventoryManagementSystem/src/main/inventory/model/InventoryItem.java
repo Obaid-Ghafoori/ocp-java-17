@@ -1,8 +1,9 @@
 package chapter_14.InventoryManagementSystem.src.main.inventory.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -13,7 +14,7 @@ public class InventoryItem {
     private String name;
     private String category;
     private int quantity;
-    private BigDecimal price;
+    private double price;
     private LocalDate dateAdded;
 
 }

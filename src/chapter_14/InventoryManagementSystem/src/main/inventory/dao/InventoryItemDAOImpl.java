@@ -24,7 +24,7 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
             stmt.setString(1, item.getName());
             stmt.setString(2, item.getCategory());
             stmt.setInt(3, item.getQuantity());
-            stmt.setBigDecimal(4, item.getPrice());
+            stmt.setDouble(4, item.getPrice());
             stmt.setDate(5, java.sql.Date.valueOf(item.getDateAdded()));
 
             int rowsAffected = stmt.executeUpdate();
@@ -59,7 +59,7 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
                         rs.getString("name"),
                         rs.getString("category"),
                         rs.getInt("quantity"),
-                        rs.getBigDecimal("price"),
+                        rs.getDouble("price"),
                         rs.getDate("date_added").toLocalDate()
                 );
             }
@@ -89,7 +89,7 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
                         rs.getString("name"),
                         rs.getString("category"),
                         rs.getInt("quantity"),
-                        rs.getBigDecimal("price"),
+                        rs.getDouble("price"),
                         rs.getDate("date_added").toLocalDate()
                 ));
             }
@@ -105,6 +105,29 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
      */
     @Override
     public void updateItem(InventoryItem item) {
+        String sql = "UPDATE Inventory SET name = ?, category = ?, quantity = ?, price = ?, date_added = ? WHERE item_id = ?";
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, item.getName());
+            stmt.setString(2, item.getCategory());
+            stmt.setInt(3, item.getQuantity());
+            stmt.setDouble(4, item.getPrice());
+            stmt.setDate(5, Date.valueOf(item.getDateAdded()));
+            stmt.setInt(6, item.getItemId());
+
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Item updated successfully!");
+            } else {
+                System.out.println("Failed to update item.");
+            }
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

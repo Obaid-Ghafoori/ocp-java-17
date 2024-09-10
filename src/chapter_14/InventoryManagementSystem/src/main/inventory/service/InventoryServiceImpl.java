@@ -59,6 +59,7 @@ public class InventoryServiceImpl implements InventoryService {
      */
     @Override
     public void updateItem(InventoryItem item) {
+        itemDAO.updateItem(item);
 
     }
 
@@ -70,7 +71,7 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public void deleteItem(int itemId) {
         itemDAO.deleteItem(itemId);
-        getAllItems();
+        getAllItems().forEach(System.out::println);
 
     }
 }
