@@ -2,7 +2,7 @@ package chapter_13;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class SheepManagerWithLock {
@@ -10,12 +10,21 @@ public class SheepManagerWithLock {
     private final ReentrantLock lock = new ReentrantLock();
 
     public void incrementAndReport() {
-        lock.lock();
         try {
-            System.out.print((++counter) + " ");
-        } finally {
-            lock.unlock();
+            if(lock.tryLock(100, TimeUnit.MILLISECONDS)){
+                try {
+                    System.out.print((++counter) + " ");
+                    System.out.println("Lock obtained, entering protecting coding block");
+                } finally {
+                    lock.unlock();
+                }
+            }else {
+                System.out.println(" Unable to acquire lock, doing something else at the moment");
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
+
     }
 
     public static void main(String[] args) {
