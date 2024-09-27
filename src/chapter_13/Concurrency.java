@@ -16,8 +16,8 @@ public class Concurrency {
          *  application will terminate when only threads that running are deamon thread. e.g. setting thread will not
          *  print out the statement inside the pause.
          */
-        job.setDaemon(true);
+        //job.setDaemon(true);
         job.start();
-        System.out.println("Main method finished its task!");
+        System.out.println("Main method finished its task after " + job.getState() );
     }
 }
