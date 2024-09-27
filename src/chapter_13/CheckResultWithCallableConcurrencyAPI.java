@@ -11,6 +11,9 @@ public class CheckResultWithCallableConcurrencyAPI {
         } finally {
             service.shutdown();
         }
+        service.awaitTermination(1, TimeUnit.MINUTES);
+        String isTerminated = service.isTerminated() ? "Finished!" : "At least one task is still running!";
+        System.out.println(isTerminated);
     }
 }
 
