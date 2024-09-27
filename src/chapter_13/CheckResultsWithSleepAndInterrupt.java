@@ -26,7 +26,6 @@ public class CheckResultsWithSleepAndInterrupt {
             } catch (InterruptedException e) {
                 // Handle the InterruptedException instead of throwing a RuntimeException
                 System.out.println("Main thread is interrupted!");
-                //return;
             }
         }
 
