@@ -15,7 +15,9 @@ public class CheckResultWithConcurrencyAPI {
             });
 
             result.get(10, TimeUnit.SECONDS);
-            System.out.println("Reached!");
+            String isDone = result.isDone() ? "yes" : "not";
+            String cancelled = result.isCancelled() ? "yes" : "not";;
+            System.out.println("Is it reached! " + isDone + "\nIs it cancelled? " + cancelled );
         } catch (TimeoutException | InterruptedException e) {
             System.out.println(" Not reached on time!");
         } finally {
