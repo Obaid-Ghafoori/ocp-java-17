@@ -12,6 +12,11 @@ public class Concurrency {
             }
         });
 
+        /** a deamon thread is the one that will not prevent JVM from exiting the program to finishes.
+         *  application will terminate when only threads that running are deamon thread. e.g. setting thread will not
+         *  print out the statement inside the pause.
+         */
+        job.setDaemon(true);
         job.start();
         System.out.println("Main method finished its task!");
     }
