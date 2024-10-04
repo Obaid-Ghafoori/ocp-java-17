@@ -7,9 +7,8 @@ public class MultiThreadedFileProcessor {
         //  number of workers
         int numberOfThread = 3;
 
-        var cyclicBarrier = new CyclicBarrier(numberOfThread, () -> {
-            System.out.println("All workers reached the barrier. Moving to the next phase...\n");
-        });
+        var cyclicBarrier = new CyclicBarrier(numberOfThread, () ->
+            System.out.println("All workers reached the barrier. Moving to the next phase...\n"));
 
         simulateLargeData();
 
