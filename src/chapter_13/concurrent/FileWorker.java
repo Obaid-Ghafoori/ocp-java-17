@@ -1,5 +1,6 @@
 package chapter_13.concurrent;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.CyclicBarrier;
@@ -43,24 +44,29 @@ public class FileWorker implements Runnable {
             String processedChunk = chunk.toUpperCase();  // Simulating processing
             System.out.println("Worker " + WorkerId + " processed: " + processedChunk);
 
-            // Synchronize at the barrier again (wait for other Workers to finish processing)
             barrier.await();
 
             // PHASE 3: Exporting to CSV (for now, writing to the console or a file)
             System.out.println("Worker " + WorkerId + " exporting data to CSV...");
-            exportToCSV("output.csv", processedChunk);
+            File exportedCsvFile = new File("output.csv");
+            exportToCSV(exportedCsvFile, processedChunk);
 
-            barrier.await();  // Final barrier for exporting phase
+            barrier.await();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void exportToCSV(String fileName, String data) {
-        try (FileWriter writer = new FileWriter(fileName, true)) {
+    private File exportToCSV(File file, String data) {
+        try (FileWriter writer = new FileWriter(file, true)) {
             writer.write(data + "\n");
+
+            System.out.println("Data exported to CSV at: " + file.getAbsolutePath());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return file;
     }
 }
