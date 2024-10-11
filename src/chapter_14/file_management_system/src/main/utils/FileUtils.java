@@ -1,6 +1,7 @@
 package chapter_14.file_management_system.src.main.utils;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Utility class for handling file path operations.
@@ -26,6 +27,17 @@ public class FileUtils {
      */
     public static Path normalizePath(Path path) {
         return path.normalize();
+    }
+
+    /**
+     * Relativizes and normalizes the provided path string.
+     * Converts the given path string to an absolute path, and normalizes it to remove any redundant elements.
+     *
+     * @param pathString The string representation of the path to be relativized and normalized.
+     * @return The absolute and normalized Path object.
+     */
+    public static Path relativizeAndNormalizePath(String pathString) {
+        return Paths.get(pathString).toAbsolutePath().normalize();
     }
 }
 
