@@ -1,5 +1,8 @@
 package chapter_14.file_management_system.src.main;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,9 +13,12 @@ import java.util.List;
 /**
  * Class responsible for managing file operations like copy, move, and delete.
  */
+@AllArgsConstructor
+@NoArgsConstructor
 public class FileManager {
 
     private List<FileObserver> observers;
+
 
     public void addObserver(FileObserver observer){
         if(observer != null){
@@ -34,7 +40,7 @@ public class FileManager {
         FileValidator.validateFile(source);
         Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
         System.out.println(String.format("File copied from: %s to %s", source, destination));
-        notifyObservers("copy", destination);
+        notifyObservers("COPY", destination);
 
     }
 
@@ -50,7 +56,7 @@ public class FileManager {
         FileValidator.validateFile(source);
         Files.move(source, destination, StandardCopyOption.REPLACE_EXISTING);
         System.out.println("File moved from " + source + " to " + destination);
-        notifyObservers("move", destination);
+        notifyObservers("MOVE", destination);
     }
 
     /**
@@ -63,7 +69,7 @@ public class FileManager {
         FileValidator.validateFile(path);
         Files.deleteIfExists(path);
         System.out.println("File deleted: " + path);
-        notifyObservers("delete", path);
+        notifyObservers("DELETE", path);
     }
 
     private void notifyObservers(String operation, Path filePath){

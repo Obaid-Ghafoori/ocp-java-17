@@ -1,12 +1,14 @@
 package chapter_14.file_management_system.src.main;
 
 import java.nio.file.Path;
+import java.util.logging.Logger;
 
 /**
  * Implementation of the {@link FileObserver} interface.
  * Logs file operations to the console.
  */
 public class FileObserverImpl implements FileObserver {
+    private static final Logger logger = Logger.getLogger(FileObserverImpl.class.getName());
     /**
      * Called when a file operation occurs.
      *
@@ -15,6 +17,7 @@ public class FileObserverImpl implements FileObserver {
      */
     @Override
     public void onFileEvent(String operation, Path filePath) {
-        System.out.println(String.format("File operation: %s on file %s", operation, filePath));
+        logger.info(String.format("File operation: %s on file %s", operation, filePath));
+
     }
 }
