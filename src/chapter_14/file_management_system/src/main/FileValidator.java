@@ -6,6 +6,8 @@ import java.io.IOException;
 
 /**
  * Class for validating file properties and permissions.
+ *
+ * @author Obaid Ghafoori
  */
 public class FileValidator {
 

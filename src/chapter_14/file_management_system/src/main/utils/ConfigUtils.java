@@ -2,6 +2,8 @@ package chapter_14.file_management_system.src.main.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 /**
@@ -19,26 +21,60 @@ import java.util.Properties;
  *     String filePath = ConfigUtils.getFilePathFromConfig();
  * </pre>
  * </p>
+ *
  * @author Obaid Ghafoori
  */
 public class ConfigUtils {
+    private static final String CONFIG_FILE_PATH = "ocp-java-17/src/resources/config.properties";
+    private static final String basePath;
+
+    static {
+        basePath = loadBasePath();
+    }
+
     /**
-     * Retrieves the file path from the configuration properties file.
+     * Loads the source file path from the config file.
      *
-     * @return The file path specified in the config file.
-     * @throws RuntimeException If there is an issue loading the config file.
+     * @return the source file path.
      */
+    public static Path getSourceFilePath() {
+        return Paths.get(loadSourcePath());
+    }
 
-    public static String getFilePathFromConfig() {
-        String configFilePath = "ocp-java-17/src/resources/config.properties";
+    /**
+     * Loads the destination file path from the config file.
+     *
+     * @return the destination file path.
+     */
+    public static Path getDestinationFilePath() {
+        return Paths.get(loadTargetPath());
+    }
 
-        try (FileInputStream fis = new FileInputStream(configFilePath)) {
+    private static Path getDestinationFileAlternativePath() {
+        return Paths.get(basePath, "destination.txt");
+    }
+
+
+    private static String getProperty(String key) {
+        try (FileInputStream fis = new FileInputStream(CONFIG_FILE_PATH)) {
             Properties prop = new Properties();
             prop.load(fis);
-            return prop.getProperty("file.path");
+            return prop.getProperty(key);
         } catch (IOException e) {
             throw new RuntimeException("Error loading config file", e);
         }
+    }
+
+    private static String loadBasePath() {
+        return getProperty("base.path");
+    }
+
+    private static String loadSourcePath() {
+        return getProperty("source.file.path");
+    }
+
+    private static String loadTargetPath() {
+        return getProperty("destination.file.path");
     }
 
 }

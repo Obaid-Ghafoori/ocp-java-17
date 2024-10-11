@@ -11,9 +11,9 @@ public class FileManagementSystem {
     public static void main(String[] args) {
         try {
             FileManager fileManager = new FileManager(List.of(new FileObserverImpl()));
-            // ocp-java-17/src/chapter_14/file_management_system/src/resources
-            Path sourcePath = relativizeAndNormalizePath(ConfigUtils.getFilePathFromConfig());
-            Path destinationPath = relativizeAndNormalizePath(ConfigUtils.getFilePathFromConfig());
+
+            Path sourcePath = relativizeAndNormalizePath(ConfigUtils.getSourceFilePath().toString());
+            Path destinationPath = relativizeAndNormalizePath(ConfigUtils.getDestinationFilePath().toString());
 
             fileManager.appendContentToFile(sourcePath, "This is new content of the file!");
 
