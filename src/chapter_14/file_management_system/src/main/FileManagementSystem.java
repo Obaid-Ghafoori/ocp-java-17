@@ -1,5 +1,7 @@
 package chapter_14.file_management_system.src.main;
 
+import chapter_14.file_management_system.src.main.utils.ConfigUtils;
+
 import java.nio.file.Path;
 import java.util.List;
 
@@ -9,9 +11,9 @@ public class FileManagementSystem {
     public static void main(String[] args) {
         try {
             FileManager fileManager = new FileManager(List.of(new FileObserverImpl()));
-
-            Path sourcePath = relativizeAndNormalizePath("src/main/resources/source.txt");
-            Path destinationPath = relativizeAndNormalizePath("src/main/resources/destination.txt");
+            // ocp-java-17/src/chapter_14/file_management_system/src/resources
+            Path sourcePath = relativizeAndNormalizePath(ConfigUtils.getFilePathFromConfig());
+            Path destinationPath = relativizeAndNormalizePath(ConfigUtils.getFilePathFromConfig());
 
             fileManager.appendContentToFile(sourcePath, "This is new content of the file!");
 
