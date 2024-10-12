@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Class responsible for managing file operations like copy, move, and delete.
@@ -16,17 +17,32 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FileManager {
+    private static final Logger logger = Logger.getLogger(FileManager.class.getName());
 
     private List<FileObserver> observers;
 
+    public static void createFileIfNotExists(Path path) throws IOException {
+        createParentDirectories(path);
 
-    public void addObserver(FileObserver observer){
-        if(observer != null){
+        if (Files.notExists(path)) {
+            Files.createFile(path);
+            logger.info("File created: " + path);
+        } else {
+            logger.info("File already exists: " + path);
+        }
+    }
+
+    private static void createParentDirectories(Path path) throws IOException {
+        Files.createDirectories(path.getParent());
+        logger.info("Parent directories created: " + path.getParent());
+    }
+
+    public void addObserver(FileObserver observer) {
+        if (observer != null) {
             observers = new ArrayList<>();
         }
         observers.add(observer);
     }
-
 
     /**
      * Copies a file from source to destination.
@@ -36,10 +52,10 @@ public class FileManager {
      * @throws IOException if the file cannot be copied
      */
 
-    public void validateAndCopyFile(Path source, Path destination) throws IOException{
+    public void validateAndCopyFile(Path source, Path destination) throws IOException {
         FileValidator.validateFile(source);
         Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
-        System.out.println(String.format("File copied from: %s to %s", source, destination));
+        logger.info(String.format("File copied from: %s to %s", source, destination));
         notifyObservers("COPY", destination);
 
     }
@@ -55,7 +71,7 @@ public class FileManager {
     public void moveFile(Path source, Path destination) throws IOException {
         FileValidator.validateFile(source);
         Files.move(source, destination, StandardCopyOption.REPLACE_EXISTING);
-        System.out.println("File moved from " + source + " to " + destination);
+        logger.info("File moved from " + source + " to " + destination);
         notifyObservers("MOVE", destination);
     }
 
@@ -68,7 +84,7 @@ public class FileManager {
     public void deleteFile(Path path) throws IOException {
         FileValidator.validateFile(path);
         Files.deleteIfExists(path);
-        System.out.println("File deleted: " + path);
+        logger.info("File deleted: " + path);
         notifyObservers("DELETE", path);
     }
 
@@ -76,35 +92,18 @@ public class FileManager {
      * Copies a file from the source path to the destination path using the specified FileManager.
      * The destination file is overwritten if it already exists.
      *
-     * @param sourcePath The source file path.
+     * @param sourcePath      The source file path.
      * @param destinationPath The destination file path where the file is to be copied.
      * @throws IOException If an I/O error occurs during the file copy operation.
      */
     public void copyFile(Path sourcePath, Path destinationPath) throws IOException {
         validateAndCopyFile(sourcePath, destinationPath);
-        System.out.println("File copied from " + sourcePath + " to " + destinationPath);
+        logger.info("File copied from " + sourcePath + " to " + destinationPath);
     }
 
-
-    private void notifyObservers(String operation, Path filePath){
-        for(FileObserver observer : observers){
+    private void notifyObservers(String operation, Path filePath) {
+        for (FileObserver observer : observers) {
             observer.onFileEvent(operation, filePath);
         }
-    }
-
-    public static void createFileIfNotExists(Path path) throws IOException {
-        createParentDirectories(path);
-
-        if (Files.notExists(path)) {
-            Files.createFile(path);
-            System.out.println("File created: " + path);
-        } else {
-            System.out.println("File already exists: " + path);
-        }
-    }
-
-    private static void createParentDirectories(Path path) throws IOException {
-        Files.createDirectories(path.getParent());
-        System.out.println("Parent directories created: " + path.getParent());
     }
 }

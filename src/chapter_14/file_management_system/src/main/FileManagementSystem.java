@@ -16,7 +16,6 @@ public class FileManagementSystem {
             Path sourcePath = relativizeAndNormalizePath(ConfigUtils.getSourcePath("source.md").toString());
             Path destinationPath = relativizeAndNormalizePath(ConfigUtils.getDestinationPath("destination.md").toString());
 
-//            Stream.of("This is new content of the file!").forEach();
             appendContentToFile(sourcePath, "This content is generated upon each program run!");
 
             fileManager.copyFile(sourcePath, destinationPath);

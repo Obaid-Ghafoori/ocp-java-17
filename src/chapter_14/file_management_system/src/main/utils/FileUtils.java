@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.logging.Logger;
 
 import static chapter_14.file_management_system.src.main.FileManager.createFileIfNotExists;
 
@@ -12,6 +13,7 @@ import static chapter_14.file_management_system.src.main.FileManager.createFileI
  * Utility class for handling file path operations.
  */
 public class FileUtils {
+    private static final Logger logger = Logger.getLogger(FileUtils.class.getName());
 
     /**
      * Resolves a file name to a given directory.
@@ -61,7 +63,7 @@ public class FileUtils {
         String formattedContent = String.format("Appending attempt [%d]: %s%s", currentCount, content, System.lineSeparator());
 
         Files.write(path, formattedContent.getBytes(), StandardOpenOption.APPEND);
-        System.out.println("Content appended to file: " + path);
+        logger.info("Content appended to file: " + path);
     }
 
     /**
