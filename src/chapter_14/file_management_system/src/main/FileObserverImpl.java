@@ -17,7 +17,7 @@ public class FileObserverImpl implements FileObserver {
      */
     @Override
     public void onFileEvent(String operation, Path filePath) {
-        logger.info(String.format("File operation: %s on file %s", operation, filePath));
+        logger.info(String.format("File copied from %s to %s", operation, filePath));
 
     }
 }
