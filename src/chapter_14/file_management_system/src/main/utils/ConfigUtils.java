@@ -37,8 +37,8 @@ public class ConfigUtils {
      *
      * @return the source file path.
      */
-    public static Path getSourceFilePath() {
-        return Paths.get(loadSourcePath());
+    public static Path getSourcePath(String fileName) {
+        return Paths.get(basePath, fileName);
     }
 
     /**
@@ -46,12 +46,12 @@ public class ConfigUtils {
      *
      * @return the destination file path.
      */
-    public static Path getDestinationFilePath() {
-        return Paths.get(loadTargetPath());
+    public static Path getDestinationPath(String fileName) {
+        return Paths.get(basePath, fileName);
     }
 
-    private static Path getDestinationFileAlternativePath() {
-        return Paths.get(basePath, "destination.txt");
+    public static Path getDestinationFileAlternativePath() {
+        return Paths.get(loadTargetPath());
     }
 
 

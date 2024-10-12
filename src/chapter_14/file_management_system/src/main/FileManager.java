@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,25 +73,6 @@ public class FileManager {
     }
 
     /**
-     * Appends content to a file at the specified path.
-     * If the file does not exist, it is created. The content is appended to the end of the file.
-     *
-     * @param path The path of the file to which content is to be appended.
-     * @param content The content to append to the file.
-     * @throws IOException If an I/O error occurs while writing to the file.
-     */
-    public void appendContentToFile(Path path, String content) throws IOException {
-        createFileIfNotExists(path);
-
-        if (Files.exists(path) && !Files.isDirectory(path)) {
-            Files.write(path, (content + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
-            System.out.println("Content appended to file: " + path);
-        } else {
-            System.out.println("File does not exist or is a directory: " + path);
-        }
-    }
-
-    /**
      * Copies a file from the source path to the destination path using the specified FileManager.
      * The destination file is overwritten if it already exists.
      *
@@ -112,7 +92,7 @@ public class FileManager {
         }
     }
 
-    private static void createFileIfNotExists(Path path) throws IOException {
+    public static void createFileIfNotExists(Path path) throws IOException {
         createParentDirectories(path);
 
         if (Files.notExists(path)) {
