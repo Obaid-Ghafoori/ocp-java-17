@@ -2,6 +2,8 @@ package chapter_14.file_management_system.src.main;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,16 +11,13 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-
 /**
  * Class responsible for managing file operations like copy, move, and delete.
  */
 @AllArgsConstructor
 @NoArgsConstructor
 public class FileManager {
-    private static final Logger logger = Logger.getLogger(FileManager.class.getName());
-
+    private static final Logger logger = LoggerFactory.getLogger(FileManager.class.getName());
     private List<FileObserver> observers;
 
     public static void createFileIfNotExists(Path path) throws IOException {
@@ -32,10 +31,6 @@ public class FileManager {
         }
     }
 
-    private static void createParentDirectories(Path path) throws IOException {
-        Files.createDirectories(path.getParent());
-        logger.info("Parent directories created: " + path.getParent());
-    }
 
     public void addObserver(FileObserver observer) {
         if (observer != null) {
@@ -97,6 +92,7 @@ public class FileManager {
      * @throws IOException If an I/O error occurs during the file copy operation.
      */
     public void copyFile(Path sourcePath, Path destinationPath) throws IOException {
+        logger.info("Validating and copying file...");
         validateAndCopyFile(sourcePath, destinationPath);
         logger.info("File copied from " + sourcePath + " to " + destinationPath);
     }
@@ -105,5 +101,10 @@ public class FileManager {
         for (FileObserver observer : observers) {
             observer.onFileEvent(operation, filePath);
         }
+    }
+
+    private static void createParentDirectories(Path path) throws IOException {
+        Files.createDirectories(path.getParent());
+        logger.info("Parent directories created: " + path.getParent());
     }
 }
