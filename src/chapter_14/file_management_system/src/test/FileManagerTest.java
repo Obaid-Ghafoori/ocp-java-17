@@ -27,11 +27,14 @@ public class FileManagerTest {
     private FileManager fileManager;
     @Mock
     private FileObserver fileObserverMock;
-
+    private Path source;
+    private Path destination;
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         fileManager = new FileManager(List.of(fileObserverMock));
+         source = Paths.get("source.txt");
+         destination = Paths.get("destination.txt");
 
     }
 
@@ -44,10 +47,7 @@ public class FileManagerTest {
     @Test
     @DisplayName("copy file perform copy operations successfully when source file exists")
     void copyFilePerformCopyOperationSuccessfullyWhenSourceFileExists() throws IOException {
-        Path source = Paths.get("source.txt");
         Files.createFile(source);
-        Path destination = Paths.get("destination.txt");
-
         fileManager.copyFile(source, destination);
 
         assertThat(source.toFile().getName()).isEqualTo("source.txt");
@@ -58,10 +58,6 @@ public class FileManagerTest {
     @Test
     @DisplayName("Copy file throws exception when source file does not exist")
     void copyFileThrowsExceptionWhenSourceFileNotExists() {
-        // Given
-        Path source = Paths.get("source.txt");
-        Path destination = Paths.get("destination.txt");
-
         // When & Then
         assertThatThrownBy(() -> fileManager.validateAndCopyFile(source, destination))
                 .isInstanceOf(IOException.class)
