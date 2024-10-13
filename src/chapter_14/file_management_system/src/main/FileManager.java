@@ -27,7 +27,7 @@ public class FileManager {
             Files.createFile(path);
             logger.info("File created: " + path);
         } else {
-            logger.info("File already exists: " + path);
+            logger.warn("File already exists: " + path);
         }
     }
 
@@ -50,9 +50,6 @@ public class FileManager {
     public void validateAndCopyFile(Path source, Path destination) throws IOException {
         FileValidator.validateFile(source);
         Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
-        logger.info(String.format("File copied from: %s to %s", source, destination));
-        notifyObservers("COPY", destination);
-
     }
 
     /**
@@ -94,6 +91,7 @@ public class FileManager {
     public void copyFile(Path sourcePath, Path destinationPath) throws IOException {
         logger.info("Validating and copying file...");
         validateAndCopyFile(sourcePath, destinationPath);
+        notifyObservers("COPY", destinationPath);
         logger.info("File copied from " + sourcePath + " to " + destinationPath);
     }
 
