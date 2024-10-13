@@ -63,4 +63,34 @@ public class FileManagerTest {
                 .isInstanceOf(IOException.class)
                 .hasMessage("File does not exist: " + source);
     }
+
+    @Test
+    @DisplayName("Move file moves file when source file does not exist")
+    void moveFileMovesFileWhenSourceFileNotExists() throws IOException {
+        Files.createFile(source);
+        fileManager.moveFile(source, destination);
+
+        assertThat(destination.toFile().getName()).isEqualTo("destination.txt");
+
+        verify(fileObserverMock).onFileEvent("move".toUpperCase(), destination);
+    }
+
+    @Test
+    @DisplayName("Delete file deletes file when given file exists")
+    void deleteFileDeletesFileWhenGivenFileExists() throws IOException {
+        Files.createFile(source);
+        fileManager.deleteFile(source);
+
+        assertThat(Files.exists(source)).isFalse();
+        verify(fileObserverMock).onFileEvent("delete".toUpperCase(), source);
+    }
+
+    @Test
+    @DisplayName("Delete file throws exception when source file does not exist")
+    void deleteFileThrowsExceptionWhenSourceFileNotExists() {
+
+        assertThatThrownBy(() -> fileManager.deleteFile(source))
+                .isInstanceOf(IOException.class)
+                .hasMessage("File does not exist: " + source);
+    }
 }
