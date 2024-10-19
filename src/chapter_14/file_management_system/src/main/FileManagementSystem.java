@@ -23,9 +23,17 @@ public class FileManagementSystem {
             fileManager.copyFileTo(sourcePath, destinationPath);
 
             backupFileTo(fileManager, sourcePath);
+            backupDirectoriesContents(fileManager);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void backupDirectoriesContents(FileManager fileManager) throws IOException {
+        Path sourceDir = normalizeAbsolutePath(ConfigUtils.getSourcePath("../").toString());
+        Path backupDir = normalizeAbsolutePath(ConfigUtils.getSourcePath("../../backup-directories").toString());
+        fileManager.backupDirectory(sourceDir, backupDir);
     }
 
     private static void backupFileTo(FileManager fileManager, Path sourcePath) throws IOException {

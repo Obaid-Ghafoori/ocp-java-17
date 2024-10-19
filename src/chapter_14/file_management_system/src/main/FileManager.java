@@ -90,14 +90,14 @@ public class FileManager {
     /**
      * Backs up a single file to the specified backup directory.
      *
-     * @param sourcePath The path of the file to back up.
-     * @param backupDir  The directory where the file will be backed up.
+     * @param sourcePath      The path of the file to back up.
+     * @param backupDirectory The directory where the file will be backed up.
      * @throws IOException If an I/O error occurs during the backup process.
      */
-    public void backupFile(Path sourcePath, Path backupDir) throws IOException {
-        createDirectoriesAt(backupDir);
+    public void backupFile(Path sourcePath, Path backupDirectory) throws IOException {
+        createDirectoriesAt(backupDirectory);
 
-        var toBackupPath = resolvePath(backupDir, sourcePath.getFileName().toString());
+        var toBackupPath = resolvePath(backupDirectory, sourcePath.getFileName().toString());
 
         copyFileTo(sourcePath, toBackupPath);
     }
@@ -105,15 +105,25 @@ public class FileManager {
     /**
      * Backs up all files in a specified directory to a backup directory.
      *
-     * @param sourceDir The directory to back up.
-     * @param backupDir The directory where files will be backed up.
+     * @param sourceDirectory The directory to back up.
+     * @param backupDirectory The directory where files will be backed up.
      * @throws IOException If an I/O error occurs during the backup process.
      */
-    public void backupDirectory(Path sourceDir, Path backupDir) throws IOException {
-        // Ensure the backup directory exists
-        // Create a corresponding path in the backup directory
-        // Create directories in the backup location
-        // Copy files and preserve attributes
+    public void backupDirectory(Path sourceDirectory, Path backupDirectory) throws IOException {
+        Files.walk(sourceDirectory).forEach(sourcePath -> {
+            try {
+                Path targetPath = backupDirectory.resolve(sourceDirectory.relativize(sourcePath));
+                if (Files.isDirectory(sourcePath)) {
+                    Files.createDirectories(targetPath);
+                } else {
+                    validateAndCopyFile(sourcePath, targetPath);
+                    logger.info("File backed up: " + sourcePath + " to " + targetPath);
+                }
+            } catch (IOException e) {
+                logger.error("Failed to back up: " + sourcePath + " due to " + e.getMessage());
+            }
+        });
+
     }
 
     private void notifyObservers(String operation, Path filePath) {

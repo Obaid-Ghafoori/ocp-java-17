@@ -93,10 +93,8 @@ public class FileUtils {
      */
 
     public static void createDirectoriesAt(Path path) throws IOException {
-
         Files.createDirectories(path);
-        logger.info("Parent directories created: " + path);
-
+        logger.info("Directories created: " + path);
     }
 
     /**
