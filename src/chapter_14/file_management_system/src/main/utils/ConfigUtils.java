@@ -50,8 +50,8 @@ public class ConfigUtils {
         return Paths.get(basePath, fileName);
     }
 
-    public static Path getDestinationFileAlternativePath() {
-        return Paths.get(loadTargetPath());
+    public static Path getTargetDirectoryPath(String folderName) {
+        return Paths.get(basePath).resolve(folderName);
     }
 
 

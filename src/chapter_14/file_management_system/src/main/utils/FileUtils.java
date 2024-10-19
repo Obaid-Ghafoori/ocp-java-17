@@ -15,7 +15,7 @@ import java.nio.file.StandardOpenOption;
  * Utility class for handling file path operations.
  */
 public class FileUtils {
-private static final Logger logger = LoggerFactory.getLogger(FileManager.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(FileManager.class.getName());
 
     /**
      * Resolves a file name to a given directory.
@@ -45,7 +45,7 @@ private static final Logger logger = LoggerFactory.getLogger(FileManager.class.g
      * @param pathString The string representation of the path to be relativized and normalized.
      * @return The absolute and normalized Path object.
      */
-    public static Path relativizeAndNormalizePath(String pathString) {
+    public static Path normalizeAbsolutePath(String pathString) {
         return Paths.get(pathString).toAbsolutePath().normalize();
     }
 
@@ -85,11 +85,18 @@ private static final Logger logger = LoggerFactory.getLogger(FileManager.class.g
         }
     }
 
-    private static void createDirectoriesAt(Path path) throws IOException {
-        if (Files.notExists(path)) {
-            Files.createDirectories(path);
-            logger.info("Parent directories created: " + path.getParent());
-        }
+    /**
+     * Create directories at the given path
+     *
+     * @param path the path of the file.
+     * @throws IOException if an I/O error occurs.
+     */
+
+    public static void createDirectoriesAt(Path path) throws IOException {
+
+        Files.createDirectories(path);
+        logger.info("Parent directories created: " + path);
+
     }
 
     /**

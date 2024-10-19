@@ -48,7 +48,7 @@ public class FileManagerTest {
     @DisplayName("copy file perform copy operations successfully when source file exists")
     void copyFilePerformCopyOperationSuccessfullyWhenSourceFileExists() throws IOException {
         Files.createFile(source);
-        fileManager.copyFile(source, destination);
+        fileManager.copyFileTo(source, destination);
 
         assertThat(source.toFile().getName()).isEqualTo("source.txt");
 

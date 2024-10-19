@@ -11,6 +11,10 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+
+import static chapter_14.file_management_system.src.main.utils.FileUtils.createDirectoriesAt;
+import static chapter_14.file_management_system.src.main.utils.FileUtils.resolvePath;
+
 /**
  * Class responsible for managing file operations like copy, move, and delete.
  */
@@ -37,7 +41,7 @@ public class FileManager {
 
     public void validateAndCopyFile(Path source, Path destination) throws IOException {
         FileValidator.validateFile(source);
-        Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
     }
 
     /**
@@ -76,7 +80,7 @@ public class FileManager {
      * @param destinationPath The destination file path where the file is to be copied.
      * @throws IOException If an I/O error occurs during the file copy operation.
      */
-    public void copyFile(Path sourcePath, Path destinationPath) throws IOException {
+    public void copyFileTo(Path sourcePath, Path destinationPath) throws IOException {
         logger.info("Validating and copying file...");
         validateAndCopyFile(sourcePath, destinationPath);
         notifyObservers("COPY", destinationPath);
@@ -91,9 +95,11 @@ public class FileManager {
      * @throws IOException If an I/O error occurs during the backup process.
      */
     public void backupFile(Path sourcePath, Path backupDir) throws IOException {
-        // Ensure the backup directory exists
-        // Define the target backup file path
-        // Copy the file, preserving attributes
+        createDirectoriesAt(backupDir);
+
+        var toBackupPath = resolvePath(backupDir, sourcePath.getFileName().toString());
+
+        copyFileTo(sourcePath, toBackupPath);
     }
 
     /**
