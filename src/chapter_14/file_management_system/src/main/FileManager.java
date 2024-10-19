@@ -20,18 +20,6 @@ public class FileManager {
     private static final Logger logger = LoggerFactory.getLogger(FileManager.class.getName());
     private List<FileObserver> observers;
 
-    public static void createFileIfNotExists(Path path) throws IOException {
-        createParentDirectories(path);
-
-        if (Files.notExists(path)) {
-            Files.createFile(path);
-            logger.info("File created: " + path);
-        } else {
-            logger.warn("File already exists: " + path);
-        }
-    }
-
-
     public void addObserver(FileObserver observer) {
         if (observer != null) {
             observers = new ArrayList<>();
@@ -95,14 +83,37 @@ public class FileManager {
         logger.info("File copied from " + sourcePath + " to " + destinationPath);
     }
 
+    /**
+     * Backs up a single file to the specified backup directory.
+     *
+     * @param sourcePath The path of the file to back up.
+     * @param backupDir  The directory where the file will be backed up.
+     * @throws IOException If an I/O error occurs during the backup process.
+     */
+    public void backupFile(Path sourcePath, Path backupDir) throws IOException {
+        // Ensure the backup directory exists
+        // Define the target backup file path
+        // Copy the file, preserving attributes
+    }
+
+    /**
+     * Backs up all files in a specified directory to a backup directory.
+     *
+     * @param sourceDir The directory to back up.
+     * @param backupDir The directory where files will be backed up.
+     * @throws IOException If an I/O error occurs during the backup process.
+     */
+    public void backupDirectory(Path sourceDir, Path backupDir) throws IOException {
+        // Ensure the backup directory exists
+        // Create a corresponding path in the backup directory
+        // Create directories in the backup location
+        // Copy files and preserve attributes
+    }
+
     private void notifyObservers(String operation, Path filePath) {
         for (FileObserver observer : observers) {
             observer.onFileEvent(operation, filePath);
         }
     }
 
-    private static void createParentDirectories(Path path) throws IOException {
-        Files.createDirectories(path.getParent());
-        logger.info("Parent directories created: " + path.getParent());
-    }
 }

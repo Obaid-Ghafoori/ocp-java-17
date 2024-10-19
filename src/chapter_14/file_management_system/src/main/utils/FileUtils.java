@@ -1,19 +1,21 @@
 package chapter_14.file_management_system.src.main.utils;
 
+import chapter_14.file_management_system.src.main.FileManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.logging.Logger;
 
-import static chapter_14.file_management_system.src.main.FileManager.createFileIfNotExists;
 
 /**
  * Utility class for handling file path operations.
  */
 public class FileUtils {
-    private static final Logger logger = Logger.getLogger(FileUtils.class.getName());
+private static final Logger logger = LoggerFactory.getLogger(FileManager.class.getName());
 
     /**
      * Resolves a file name to a given directory.
@@ -67,6 +69,30 @@ public class FileUtils {
     }
 
     /**
+     * Creates file in the given path
+     *
+     * @param path the path of the file.
+     * @throws IOException if an I/O error occurs.
+     */
+    public static void createFileIfNotExists(Path path) throws IOException {
+        createParentDirectories(path);
+
+        if (Files.notExists(path)) {
+            Files.createFile(path);
+            logger.info("File created: " + path);
+        } else {
+            logger.warn("File already exists: " + path);
+        }
+    }
+
+    private static void createDirectoriesAt(Path path) throws IOException {
+        if (Files.notExists(path)) {
+            Files.createDirectories(path);
+            logger.info("Parent directories created: " + path.getParent());
+        }
+    }
+
+    /**
      * Gets the current append count from the file.
      *
      * @param path the path of the file.
@@ -84,6 +110,11 @@ public class FileUtils {
             }
         }
         return 0;
+    }
+
+    private static void createParentDirectories(Path path) throws IOException {
+        Files.createDirectories(path.getParent());
+        logger.info("Parent directories created: " + path.getParent());
     }
 }
 
