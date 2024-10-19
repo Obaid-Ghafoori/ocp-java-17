@@ -12,6 +12,38 @@ The **File Management System** is a Java application designed to handle file ope
 - Atomic file move operations.
 - Validation of file operations (e.g., ensuring files exist before operations).
 
+## Project Structure
+
+The File Management System is organized into the following structure:
+
+```
+file_management_system/
+│
+├── src/
+│   ├── main/
+│   │   ├── FileManagementSystem.java
+│   │   ├── FileManager.java
+│   │   ├── FileObserver.java
+│   │   ├── FileObserverImpl.java
+│   │   ├── FileOperation.java
+│   │   ├── FileValidator.java
+│   │   ├── utils/
+│   │   │   ├── ConfigUtils.java
+│   │   │   └── FileUtils.java
+│   │   └── resources/
+│   │       ├── files/
+│   │       │   ├── destination.md
+│   │       │   └── source.md
+│   │       ├── config.properties
+│   │       └── logback.xml
+│   └── test/
+│       ├── resource/
+│       │   └── mockito-extensions/
+│       │       └── org.mockito.plugins.MockMaker
+│       └── FileManagerTest.java
+└── README.md
+```
+
 ## Technologies Used
 - **Java 17**: Programming language.
 - **SLF4J**: Simple Logging Facade for Java (for logging).
