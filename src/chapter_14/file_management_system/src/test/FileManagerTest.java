@@ -92,4 +92,18 @@ public class FileManagerTest {
                 .isInstanceOf(IOException.class)
                 .hasMessage("File does not exist: " + source);
     }
+
+    @Test
+    @DisplayName("when backup directory is triggered with empty source should not take backup")
+    void whenBackupDirectoryIsInvokeWithEmptySource_shouldNotBackup() throws IOException {
+        Path backupDirectory = Files.createTempDirectory("backupPath");
+        Path sourceDirectory = Files.createTempDirectory("sourcePath");
+        Path emptySourceDir = Files.createTempDirectory("emptySourceDir");
+
+        fileManager.backupDirectory(sourceDirectory, backupDirectory);
+
+        assertThat(backupDirectory).isEmptyDirectory();
+        Files.deleteIfExists(emptySourceDir);
+
+    }
 }
