@@ -29,7 +29,6 @@ public class FileManagerTest {
     private FileObserver fileObserverMock;
     private Path source;
     private Path destination;
-
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -94,8 +93,8 @@ public class FileManagerTest {
     }
 
     @Test
-    @DisplayName("when backup directory is triggered with empty source should not take backup")
-    void whenBackupDirectoryIsInvokeWithEmptySource_shouldNotBackup() throws IOException {
+    @DisplayName("should not back up when source directory is empty")
+    void shouldNotBackupWhenSourceDirectoryIsEmpty() throws IOException {
         Path backupDirectory = Files.createTempDirectory("backupPath");
         Path sourceDirectory = Files.createTempDirectory("sourcePath");
         Path emptySourceDir = Files.createTempDirectory("emptySourceDir");
@@ -104,6 +103,16 @@ public class FileManagerTest {
 
         assertThat(backupDirectory).isEmptyDirectory();
         Files.deleteIfExists(emptySourceDir);
+    }
 
+    @Test
+    @DisplayName("Should throw IOException when backing up a non-existent source directory")
+    void shouldThrowIOExceptionWhenBackingUpNonExistentSourceDirectory() throws IOException {
+        Path backupDirectory = Files.createTempDirectory("backupPath");
+        Path invalidSourceDir = Paths.get("nonExistentDirectory");
+
+        assertThatThrownBy(() -> fileManager.backupDirectory(invalidSourceDir, backupDirectory))
+                .isInstanceOf(IOException.class)
+                .hasMessageContaining("nonExistentDirectory");
     }
 }
