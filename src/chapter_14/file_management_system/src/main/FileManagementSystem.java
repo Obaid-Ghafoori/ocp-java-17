@@ -1,11 +1,11 @@
 package chapter_14.file_management_system.src.main;
 
 import chapter_14.file_management_system.src.main.utils.ConfigUtils;
+import chapter_14.file_management_system.src.main.utils.FileUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static chapter_14.file_management_system.src.main.utils.ConfigUtils.getTargetDirectoryPath;
@@ -31,8 +31,8 @@ public class FileManagementSystem {
         }
 
         Path rootDirectory = normalizeAbsolutePath("./ocp-java-17/src/chapter_14/");
-        Path targetDirectory = normalizeAbsolutePath("./ocp-java-17/src/reports");
-        generateReportFrom(rootDirectory, targetDirectory);
+        Path targetDirectory = normalizeAbsolutePath("./ocp-java-17/src/report-dir/");
+        generateReportFrom(rootDirectory, targetDirectory, "task","csv");
     }
 
     private static void backupDirectoriesContents(FileManager fileManager) throws IOException {
@@ -46,14 +46,17 @@ public class FileManagementSystem {
         fileManager.backupFile(sourcePath, toBackupPath);
     }
 
-    private static void generateReportFrom(Path rootDirectory, Path fileSaveTo){
-        FileReportGenerator reportGenerator = new FileReportGenerator(rootDirectory);
+    private static void generateReportFrom(Path rootDirectory, Path fileSaveTo, String fileName, String fileExtension) {
+        var reportGenerator = new FileReportGenerator(rootDirectory);
+        var csvFile = new ReportType();
 
         try {
-            String report = reportGenerator.generateReport();
+            FileUtils.createFileIfNotExists(fileSaveTo);
+
+            var report = reportGenerator.generateReport(csvFile, fileSaveTo, fileName, fileExtension);
             System.out.println("Generated Report:\n" + report);
 
-            Path reportFilePath = Paths.get(fileSaveTo.toUri());
+            var reportFilePath = fileSaveTo.resolve(fileName + fileExtension);
             Files.writeString(reportFilePath, report);
             System.out.println("Report saved to " + reportFilePath);
 
