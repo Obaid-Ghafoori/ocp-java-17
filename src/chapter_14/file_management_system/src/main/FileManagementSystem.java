@@ -3,7 +3,9 @@ package chapter_14.file_management_system.src.main;
 import chapter_14.file_management_system.src.main.utils.ConfigUtils;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static chapter_14.file_management_system.src.main.utils.ConfigUtils.getTargetDirectoryPath;
@@ -12,12 +14,11 @@ import static chapter_14.file_management_system.src.main.utils.FileUtils.normali
 
 public class FileManagementSystem {
     public static void main(String[] args) {
+        Path sourcePath = normalizeAbsolutePath(ConfigUtils.getSourcePath("source.md").toString());
+        Path destinationPath = normalizeAbsolutePath(ConfigUtils.getDestinationPath("destination.md").toString());
+
         try {
             FileManager fileManager = new FileManager(List.of(new FileObserverImpl()));
-
-            Path sourcePath = normalizeAbsolutePath(ConfigUtils.getSourcePath("source.md").toString());
-            Path destinationPath = normalizeAbsolutePath(ConfigUtils.getDestinationPath("destination.md").toString());
-
             appendContentToFile(sourcePath, "This content is generated upon each program run!");
 
             fileManager.copyFileTo(sourcePath, destinationPath);
@@ -28,6 +29,10 @@ public class FileManagementSystem {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Path rootDirectory = normalizeAbsolutePath("./ocp-java-17/src/chapter_14/");
+        Path targetDirectory = normalizeAbsolutePath("./ocp-java-17/src/reports");
+        generateReportFrom(rootDirectory, targetDirectory);
     }
 
     private static void backupDirectoriesContents(FileManager fileManager) throws IOException {
@@ -40,4 +45,21 @@ public class FileManagementSystem {
         Path toBackupPath = getTargetDirectoryPath("backup");
         fileManager.backupFile(sourcePath, toBackupPath);
     }
+
+    private static void generateReportFrom(Path rootDirectory, Path fileSaveTo){
+        FileReportGenerator reportGenerator = new FileReportGenerator(rootDirectory);
+
+        try {
+            String report = reportGenerator.generateReport();
+            System.out.println("Generated Report:\n" + report);
+
+            Path reportFilePath = Paths.get(fileSaveTo.toUri());
+            Files.writeString(reportFilePath, report);
+            System.out.println("Report saved to " + reportFilePath);
+
+        } catch (IOException e) {
+            System.err.println("Error generating the report: " + e.getMessage());
+        }
+    }
+
 }
