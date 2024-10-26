@@ -1,13 +1,12 @@
 package chapter_14.file_management_system.src.main;
 
 import chapter_14.file_management_system.src.main.utils.ConfigUtils;
-import chapter_14.file_management_system.src.main.utils.FileUtils;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import static chapter_14.file_management_system.src.main.FileReportGenerator.generateReportFrom;
 import static chapter_14.file_management_system.src.main.utils.ConfigUtils.getTargetDirectoryPath;
 import static chapter_14.file_management_system.src.main.utils.FileUtils.appendContentToFile;
 import static chapter_14.file_management_system.src.main.utils.FileUtils.normalizeAbsolutePath;
@@ -32,7 +31,7 @@ public class FileManagementSystem {
 
         Path rootDirectory = normalizeAbsolutePath("./ocp-java-17/src/chapter_14/");
         Path targetDirectory = normalizeAbsolutePath("./ocp-java-17/src/report-dir/");
-        generateReportFrom(rootDirectory, targetDirectory, "task","csv");
+        generateReportFrom(rootDirectory, targetDirectory, "tasking",".csv");
     }
 
     private static void backupDirectoriesContents(FileManager fileManager) throws IOException {
@@ -46,23 +45,6 @@ public class FileManagementSystem {
         fileManager.backupFile(sourcePath, toBackupPath);
     }
 
-    private static void generateReportFrom(Path rootDirectory, Path fileSaveTo, String fileName, String fileExtension) {
-        var reportGenerator = new FileReportGenerator(rootDirectory);
-        var csvFile = new ReportType();
 
-        try {
-            FileUtils.createFileIfNotExists(fileSaveTo);
-
-            var report = reportGenerator.generateReport(csvFile, fileSaveTo, fileName, fileExtension);
-            System.out.println("Generated Report:\n" + report);
-
-            var reportFilePath = fileSaveTo.resolve(fileName + fileExtension);
-            Files.writeString(reportFilePath, report);
-            System.out.println("Report saved to " + reportFilePath);
-
-        } catch (IOException e) {
-            System.err.println("Error generating the report: " + e.getMessage());
-        }
-    }
 
 }

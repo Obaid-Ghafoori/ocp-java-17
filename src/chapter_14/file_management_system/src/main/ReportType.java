@@ -14,6 +14,6 @@ public class ReportType implements ReportTypeFormatter{
      */
     @Override
     public void saveReport(String content, Path destination, String fileName, String fileExtension) throws IOException {
-        Files.writeString(destination.resolve(fileName + "."+ fileExtension), content);
+        Files.writeString(destination.resolve(fileName + fileExtension), content);
     }
 }
